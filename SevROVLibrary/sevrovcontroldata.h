@@ -63,7 +63,7 @@ private:
     int8_t ResetInitialization;
     int8_t LightsState;
 
-    //quint64 LightsStateTS = QDateTime::currentMSecsSinceEpoch();
+    //qint64 LightsStateTS;
 };
 
 #endif // SEVROVCONTROLDATA_H

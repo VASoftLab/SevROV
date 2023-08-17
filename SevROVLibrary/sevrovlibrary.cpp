@@ -27,15 +27,15 @@ void SevROVLibrary::XboxToControlData(const XboxGamepad xbox, SevROVControlData 
     auto reset = xbox.Menu;
     data->setResetInitialization(reset);
 
-    if ((uint8_t)xbox.Y == 1) // Меняем состояние при нажатой кнопке Y
+    if ((int8_t)xbox.Y == 1) // Меняем состояние при нажатой кнопке Y
     {
-        switch ((uint8_t)data->getLightsState())
+        switch ((int8_t)data->getLightsState())
         {
         case 0:
-            data->setLightsState(1);
+            data->setLightsState((int8_t)1);
             break;
         case 1:
-            data->setLightsState(0);
+            data->setLightsState((int8_t)0);
             break;
         }
     }

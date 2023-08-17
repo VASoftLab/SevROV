@@ -19,6 +19,8 @@ void SevROVControlData::Initialize()
     ResetInitialization = 0;
     LightsState = 0;
 
+    //LightsStateTS = QDateTime::currentDateTime().toSecsSinceEpoch();
+
 }
 
 void SevROVControlData::Initialize(float horizontalvectorx,
@@ -42,6 +44,8 @@ void SevROVControlData::Initialize(float horizontalvectorx,
     CameraRotate = camerarotate;
     ResetInitialization = resetinitialization;
     LightsState = lightstate;
+
+    //LightsStateTS = QDateTime::currentDateTime().toSecsSinceEpoch();
 }
 
 void SevROVControlData::setHorizontalVectorX(float value)
@@ -91,14 +95,15 @@ void SevROVControlData::setResetInitialization(int8_t value)
 
 void SevROVControlData::setLightsState(int8_t value)
 {
-    //quint64 TS = QDateTime::currentMSecsSinceEpoch();
-    // Меняем состояние светильника не чаще чем раз в 5 секунд
-    //if (TS - LightsStateTS > 5000)
+    //qint64 CurrentTS = QDateTime::currentDateTime().toSecsSinceEpoch();
+    //qDebug() << CurrentTS;
+    //qDebug() << LightsStateTS;
+    //qDebug() << CurrentTS - LightsStateTS;
+    //if (CurrentTS - LightsStateTS > 5000)
     //{
     //    LightsState = value;
-    //    LightsStateTS = TS;
+    //    LightsStateTS = QDateTime::currentDateTime().toSecsSinceEpoch();;
     //}
-
     LightsState = value;
 }
 
