@@ -42,7 +42,20 @@ void SevROVConnector::writeTelemetryDatagram()
     {
 
         qint64 bytes = udpSocket.writeDatagram(telemetry.toByteArray(), host, portOut);
-        qDebug() << "writeDatagram():" << host.toString().toStdString().c_str()
+        qDebug() << "Telemetry datagram:" << host.toString().toStdString().c_str()
+                 << ":" << portOut << "- packet size:" << bytes << "[bytes]";
+    }
+}
+
+void SevROVConnector::writeControlDatagram()
+{
+    // Проверяем, разрешено ли коннектору писать телеметрию
+    if ((mode & SevROVConnector::Mode::CONTROL_WRITE)
+        == SevROVConnector::Mode::CONTROL_WRITE)
+    {
+
+        qint64 bytes = udpSocket.writeDatagram(control.toByteArray(), host, portOut);
+        qDebug() << "Control datagram:" << host.toString().toStdString().c_str()
                  << ":" << portOut << "- packet size:" << bytes << "[bytes]";
     }
 }

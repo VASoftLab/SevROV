@@ -2,8 +2,11 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QTimer>
 
 #include "sevrovxboxcontroller.h"
+#include "sevrovlibrary.h"
+#include "sevrovcontroldata.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -22,7 +25,13 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    SevROVXboxController *ctrl;
+
+    SevROVXboxController *jsController;
+    SevROVControlData controlData;
+
+    QTimer *controlTimer;
+
+    XboxGamepad xbox;
 
     bool jsConnected = false;
 
@@ -34,6 +43,7 @@ private:
     void OnButtonRBumper(short value);
     void OnButtonView(short value);
     void OnButtonMenu(short value);
+    void OnDPad(short value);
 
     void OnAxisLStickX(short value);
     void OnAxisLStickY(short value);
@@ -41,5 +51,7 @@ private:
     void OnAxisRStickY(short value);
     void OnAxisLTrigger(short value);
     void OnAxisRTrigger(short value);
+
+    void OnControlTimer();
 };
 #endif // MAINWINDOW_H

@@ -62,6 +62,8 @@ private:
     float CameraRotate;
     int8_t ResetInitialization;
     int8_t LightsState;
+
+    //quint64 LightsStateTS = QDateTime::currentMSecsSinceEpoch();
 };
 
 #endif // SEVROVCONTROLDATA_H

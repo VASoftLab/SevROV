@@ -91,6 +91,14 @@ void SevROVControlData::setResetInitialization(int8_t value)
 
 void SevROVControlData::setLightsState(int8_t value)
 {
+    //quint64 TS = QDateTime::currentMSecsSinceEpoch();
+    // Меняем состояние светильника не чаще чем раз в 5 секунд
+    //if (TS - LightsStateTS > 5000)
+    //{
+    //    LightsState = value;
+    //    LightsStateTS = TS;
+    //}
+
     LightsState = value;
 }
 

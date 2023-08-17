@@ -31,6 +31,7 @@ public:
     void setPortIn(int port);
     void setPortOut(int port);
     void writeTelemetryDatagram();
+    void writeControlDatagram();
 
     void openConnection();
     void openConnection(QString ip, int portIn, int portOut);
