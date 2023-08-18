@@ -210,18 +210,21 @@ void MainWindow::OnAxisRTrigger(short value)
 }
 void MainWindow::OnControlTimer()
 {
-    SevROVLibrary::XboxToControlData(xbox, &controlData);
+    SevROVLibrary::XboxToControlData(xbox, &rovConnector.control);
 
-    ui->edHorizontalVectorX->setText(QString::number(controlData.getHorizontalVectorX()));
-    ui->edHorizontalVectorY->setText(QString::number(controlData.getHorizontalVectorY()));
-    ui->edAngularVelocityZ->setText(QString::number(controlData.getAngularVelocityZ()));
-    ui->edVericalThrust->setText(QString::number(controlData.getVericalThrust()));
-    ui->edDepth->setText(QString::number(controlData.getDepth()));
-    ui->edManipulatorState->setText(QString::number(controlData.getManipulatorState()));
-    ui->edManipulatorRotate->setText(QString::number(controlData.getManipulatorRotate()));
-    ui->edCameraRotate->setText(QString::number(controlData.getCameraRotate()));
-    ui->edResetInitialization->setText(QString::number(controlData.getResetInitialization()));
-    ui->edLightsState->setText(QString::number(controlData.getLightsState()));
+    ui->edHorizontalVectorX->setText(QString::number(rovConnector.control.getHorizontalVectorX()));
+    ui->edHorizontalVectorY->setText(QString::number(rovConnector.control.getHorizontalVectorY()));
+    ui->edAngularVelocityZ->setText(QString::number(rovConnector.control.getAngularVelocityZ()));
+    ui->edVericalThrust->setText(QString::number(rovConnector.control.getVericalThrust()));
+    ui->edDepth->setText(QString::number(rovConnector.control.getDepth()));
+    ui->edManipulatorState->setText(QString::number(rovConnector.control.getManipulatorState()));
+    ui->edManipulatorRotate->setText(QString::number(rovConnector.control.getManipulatorRotate()));
+    ui->edCameraRotate->setText(QString::number(rovConnector.control.getCameraRotate()));
+    ui->edResetInitialization->setText(QString::number(rovConnector.control.getResetInitialization()));
+    ui->edLightsState->setText(QString::number(rovConnector.control.getLightsState()));
+
+    if (rovConnector.getIsConnected())
+        rovConnector.writeControlDatagram();
 }
 
 void MainWindow::on_btnAUV_clicked()

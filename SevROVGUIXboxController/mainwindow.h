@@ -7,7 +7,6 @@
 
 #include "sevrovxboxcontroller.h"
 #include "sevrovlibrary.h"
-#include "sevrovcontroldata.h"
 #include "sevrovconnector.h"
 
 QT_BEGIN_NAMESPACE
@@ -36,7 +35,6 @@ private:
     Ui::MainWindow *ui;
 
     SevROVXboxController *jsController;
-    SevROVControlData controlData;
     SevROVConnector rovConnector;
 
     QTimer *controlTimer;
