@@ -100,6 +100,63 @@ void SevROVConnector::processDatagram()
             emit OnProcessTelemetryDatagram();
         }
     }
+
+    // Размер пакета с управлением = 34 байт
+    if (udpSocket.pendingDatagramSize() == 34)
+    {
+        // Проверяем, разрешено ли коннектору читать телеметрию
+        if ((mode & SevROVConnector::Mode::CONTROL_READ)
+            == SevROVConnector::Mode::CONTROL_READ)
+        {
+            QByteArray datagram;
+            do {
+                datagram.resize(udpSocket.pendingDatagramSize());
+                udpSocket.readDatagram(datagram.data(), datagram.size());
+            } while (udpSocket.hasPendingDatagrams());
+
+            QDataStream in(&datagram, QIODevice::ReadOnly);
+            in.setFloatingPointPrecision(QDataStream::SinglePrecision);
+            in.setVersion(QDataStream::Qt_6_3);
+
+            float HorizontalVectorX;
+            float HorizontalVectorY;
+            float VericalThrust;
+            float Depth;
+            float AngularVelocityZ;
+            float ManipulatorState;
+            float ManipulatorRotate;
+            float CameraRotate;
+            int8_t ResetInitialization;
+            int8_t LightsState;
+
+            in >> HorizontalVectorX;
+            in >> HorizontalVectorY;
+            in >> VericalThrust;
+            in >> Depth;
+            in >> AngularVelocityZ;
+            in >> ManipulatorState;
+            in >> ManipulatorRotate;
+            in >> CameraRotate;
+            in >> ResetInitialization;
+            in >> LightsState;
+
+            control.setHorizontalVectorX(HorizontalVectorX);
+            control.setHorizontalVectorY(HorizontalVectorY);
+            control.setVericalThrust(VericalThrust);
+            control.setDepth(Depth);
+            control.setAngularVelocityZ(AngularVelocityZ);
+            control.setManipulatorState(ManipulatorState);
+            control.setManipulatorRotate(ManipulatorRotate);
+            control.setCameraRotate(CameraRotate);
+            control.setResetInitialization(ResetInitialization);
+            control.setLightsState(LightsState);
+
+            emit OnProcessControlDatagram();
+        }
+    }
+
+
+
 }
 
 void SevROVConnector::openConnection()
