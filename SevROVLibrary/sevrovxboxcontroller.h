@@ -16,7 +16,12 @@ public:
     SevROVXboxController(QObject *parent = nullptr, int index = 0);
     ~SevROVXboxController();
 
+    void OpenJoystick(int index);
+    void CloseJoystick();
+
     bool isRunning = true;
+
+    QList<QString> GetJoystickList();
 private:
     XboxGamepad state;
 

@@ -986,7 +986,7 @@
      </property>
     </widget>
    </widget>
-   <widget class="QGroupBox" name="gbAxis_2">
+   <widget class="QGroupBox" name="gbAUVConnection">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -1001,7 +1001,7 @@
      </font>
     </property>
     <property name="title">
-     <string>Оси</string>
+     <string>ТНПА</string>
     </property>
     <widget class="QLineEdit" name="edIP">
      <property name="geometry">
@@ -1162,7 +1162,7 @@
       </font>
      </property>
      <property name="text">
-      <string>ПОДКЛЮЧИТЬСЯ К МПА</string>
+      <string>ПОДКЛЮЧИТЬСЯ К ТНПА</string>
      </property>
     </widget>
    </widget>
@@ -1181,7 +1181,7 @@
      </font>
     </property>
     <property name="title">
-     <string>Управление</string>
+     <string>Телеметрия</string>
     </property>
     <widget class="QLineEdit" name="edRoll">
      <property name="geometry">
@@ -1363,6 +1363,21 @@
       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
      </property>
     </widget>
+   </widget>
+   <widget class="QComboBox" name="cbJoystickList">
+    <property name="geometry">
+     <rect>
+      <x>410</x>
+      <y>10</y>
+      <width>281</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">

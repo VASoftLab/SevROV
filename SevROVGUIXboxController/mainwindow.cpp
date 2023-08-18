@@ -7,7 +7,13 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
+    // Создаем объект джойстик-контроллера и получаем список доступных джойстиков
     jsController = new SevROVXboxController();
+    QList<QString> jsList = jsController->GetJoystickList();
+    for (int i = 0; i < jsList.count(); i++)
+        ui->cbJoystickList->addItem(jsList[i]);
+
+    ui->btnJoystick->setEnabled(jsList.count() > 0);
 
     // Кнопки
     connect(jsController, &SevROVXboxController::OnButtonA,
@@ -111,6 +117,8 @@ void MainWindow::on_btnJoystick_clicked()
 {
     if (!jsConnected)
     {
+        jsController->OpenJoystick(ui->cbJoystickList->currentIndex());
+
         jsController->isRunning = true;
         jsController->start();
         ui->btnJoystick->setText("ОТКЛЮЧИТЬСЯ ОТ ДЖОЙСТИКА");
@@ -120,6 +128,9 @@ void MainWindow::on_btnJoystick_clicked()
     }
     else
     {
+
+        jsController->CloseJoystick();
+
         // TODO: Как правильно завершить поток?
         jsController->isRunning = false;
         jsController->quit();
@@ -244,14 +255,14 @@ void MainWindow::on_btnAUV_clicked()
 void MainWindow::OnSocketConnect()
 {
     qDebug() << "OnSocketConnect()";
-    ui->btnAUV->setText("ОТКЛЮЧИТЬСЯ ОТ МПА");
-    ui->edAUVConnection->setText("Соединение с МПА установлено");
+    ui->btnAUV->setText("ОТКЛЮЧИТЬСЯ ОТ ТНПА");
+    ui->edAUVConnection->setText("Соединение с ТНПА установлено");
 }
 void MainWindow::OnSocketDisconnect()
 {
     qDebug() << "OnSocketDisconnect()";
-    ui->btnAUV->setText("ПОДКЛЮЧИТЬСЯ К МПА");
-    ui->edAUVConnection->setText("Соединение с МПА разорвано");
+    ui->btnAUV->setText("ПОДКЛЮЧИТЬСЯ К ТНПА");
+    ui->edAUVConnection->setText("Соединение с ТНПА разорвано");
 }
 void MainWindow::OnSocketProcessTelemetryDatagram()
 {

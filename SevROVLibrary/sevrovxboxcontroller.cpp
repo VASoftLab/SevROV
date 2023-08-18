@@ -7,19 +7,26 @@ SevROVXboxController::SevROVXboxController(QObject *parent, int index)
     {
         SDL_SetHint(SDL_HINT_JOYSTICK_ALLOW_BACKGROUND_EVENTS,"1");
         SDL_JoystickEventState(SDL_ENABLE);
-
-        joystick = SDL_JoystickOpen(index);
     }
-
 }
 
 SevROVXboxController::~SevROVXboxController()
 {
     if ((joystick != nullptr))
-    {
-        SDL_JoystickClose(joystick);
+    {        
         SDL_Quit();
     }
+}
+
+void SevROVXboxController::OpenJoystick(int index)
+{
+    joystick = SDL_JoystickOpen(index);
+}
+
+void SevROVXboxController::CloseJoystick()
+{
+    if (joystick != nullptr)
+        SDL_JoystickClose(joystick);
 }
 
 void SevROVXboxController::run()
@@ -117,4 +124,18 @@ void SevROVXboxController::run()
         // Если нужно - подобрать оптимальный интервал для задержки
         SDL_Delay(100);
     }
+}
+
+QList<QString> SevROVXboxController::GetJoystickList()
+{
+    QList<QString> list;
+
+    for (int i = 0; i < SDL_NumJoysticks(); i++)
+    {
+        SDL_Joystick *js = SDL_JoystickOpen(i);
+        list.append(SDL_JoystickName(js));
+        SDL_JoystickClose(js);
+    }
+
+    return list;
 }
