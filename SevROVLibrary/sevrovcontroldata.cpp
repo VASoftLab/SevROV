@@ -3,7 +3,7 @@
 
 SevROVControlData::SevROVControlData()
 {
-
+    LightsStatePrevious = QDateTime::currentDateTime();
 }
 
 void SevROVControlData::Initialize()
@@ -18,9 +18,6 @@ void SevROVControlData::Initialize()
     CameraRotate = 0.0;
     ResetInitialization = 0;
     LightsState = 0;
-
-    //LightsStateTS = QDateTime::currentDateTime().toSecsSinceEpoch();
-
 }
 
 void SevROVControlData::Initialize(float horizontalvectorx,
@@ -44,8 +41,6 @@ void SevROVControlData::Initialize(float horizontalvectorx,
     CameraRotate = camerarotate;
     ResetInitialization = resetinitialization;
     LightsState = lightstate;
-
-    //LightsStateTS = QDateTime::currentDateTime().toSecsSinceEpoch();
 }
 
 void SevROVControlData::setHorizontalVectorX(float value)
@@ -95,16 +90,18 @@ void SevROVControlData::setResetInitialization(int8_t value)
 
 void SevROVControlData::setLightsState(int8_t value)
 {
-    //qint64 CurrentTS = QDateTime::currentDateTime().toSecsSinceEpoch();
-    //qDebug() << CurrentTS;
-    //qDebug() << LightsStateTS;
-    //qDebug() << CurrentTS - LightsStateTS;
-    //if (CurrentTS - LightsStateTS > 5000)
-    //{
-    //    LightsState = value;
-    //    LightsStateTS = QDateTime::currentDateTime().toSecsSinceEpoch();;
-    //}
-    LightsState = value;
+    QDateTime LightsStateCurrent = QDateTime::currentDateTime();
+
+    //qDebug() << LightsStatePrevious;
+    //qDebug() << LightsStateCurrent;
+    //qDebug() << LightsStatePrevious.msecsTo(LightsStateCurrent);
+
+    // Смена режима не раньше чем раз в 5 секунд
+    if (LightsStatePrevious.msecsTo(LightsStateCurrent) >= 5000)
+    {
+        LightsState = value;
+        LightsStatePrevious = QDateTime::currentDateTime();
+    }
 }
 
 float SevROVControlData::getHorizontalVectorX()

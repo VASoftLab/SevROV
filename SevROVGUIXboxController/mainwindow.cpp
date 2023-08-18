@@ -83,6 +83,8 @@ MainWindow::MainWindow(QWidget *parent)
     controlTimer = new QTimer(this);
     connect(controlTimer, &QTimer::timeout,
             this, &MainWindow::OnControlTimer);
+
+    // controlData.LightsStatePrevious = QDateTime::currentDateTime();
 }
 
 MainWindow::~MainWindow()

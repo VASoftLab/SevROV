@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QTimer>
+#include <QDateTime>
 
 #include "sevrovxboxcontroller.h"
 #include "sevrovlibrary.h"

@@ -51,6 +51,8 @@ public:
     QByteArray toByteArray() override;
     void printDebugInfo() override;
 
+    QDateTime LightsStatePrevious;
+
 private:
     float HorizontalVectorX;
     float HorizontalVectorY;
@@ -63,7 +65,7 @@ private:
     int8_t ResetInitialization;
     int8_t LightsState;
 
-    //qint64 LightsStateTS;
+    //qint64 LightsStateTS;    
 };
 
 #endif // SEVROVCONTROLDATA_H
