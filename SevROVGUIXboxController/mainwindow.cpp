@@ -84,7 +84,16 @@ MainWindow::MainWindow(QWidget *parent)
     connect(controlTimer, &QTimer::timeout,
             this, &MainWindow::OnControlTimer);
 
-    // controlData.LightsStatePrevious = QDateTime::currentDateTime();
+    // Создаем коннектор с AUV
+    rovConnector.setMode(SevROVConnector::Mode::CONTROL_WRITE |
+                         SevROVConnector::Mode::TELEMETRY_READ);
+
+
+    connect(&rovConnector, SIGNAL(OnConnected()), this, SLOT(OnSocketConnect()));
+    connect(&rovConnector, SIGNAL(OnDisconnected()), this, SLOT(OnSocketDisconnect()));
+    connect(&rovConnector, SIGNAL(OnProcessTelemetryDatagram()), this, SLOT(OnSocketProcessTelemetryDatagram()));
+
+    ui->edAUVConnection->setEnabled(false);
 }
 
 MainWindow::~MainWindow()
@@ -214,3 +223,49 @@ void MainWindow::OnControlTimer()
     ui->edResetInitialization->setText(QString::number(controlData.getResetInitialization()));
     ui->edLightsState->setText(QString::number(controlData.getLightsState()));
 }
+
+void MainWindow::on_btnAUV_clicked()
+{
+    if (rovConnector.getIsConnected())
+    {
+        rovConnector.closeConnection();
+    }
+    else
+    {
+        rovConnector.openConnection(ui->edIP->text(),
+                                    ui->edPortIn->text().toInt(),
+                                    ui->edPortOut->text().toInt());
+    }
+}
+
+void MainWindow::OnSocketConnect()
+{
+    qDebug() << "OnSocketConnect()";
+    ui->btnAUV->setText("ОТКЛЮЧИТЬСЯ ОТ МПА");
+    ui->edAUVConnection->setText("Соединение с МПА установлено");
+}
+void MainWindow::OnSocketDisconnect()
+{
+    qDebug() << "OnSocketDisconnect()";
+    ui->btnAUV->setText("ПОДКЛЮЧИТЬСЯ К МПА");
+    ui->edAUVConnection->setText("Соединение с МПА разорвано");
+}
+void MainWindow::OnSocketProcessTelemetryDatagram()
+{
+    qDebug() << "OnSocketProcessTelemetryDatagram()";
+
+    // Проверяем, разрешено ли коннектору читать телеметрию
+    if ((rovConnector.getMode() & SevROVConnector::Mode::TELEMETRY_READ)
+        == SevROVConnector::Mode::TELEMETRY_READ)
+    {
+        // TODO: Вынести в отдельный поток?
+        ui->edRoll->setText(QString::number(rovConnector.telemetry.getRoll(), 'f', 2));
+        ui->edPitch->setText(QString::number(rovConnector.telemetry.getPitch(), 'f', 2));
+        ui->edYaw->setText(QString::number(rovConnector.telemetry.getYaw(), 'f', 2));
+        ui->edHeading->setText(QString::number(rovConnector.telemetry.getHeading(), 'f', 2));
+        ui->edDepthAUV->setText(QString::number(rovConnector.telemetry.getDepth(), 'f', 2));
+
+        rovConnector.telemetry.printDebugInfo();
+    }
+}
+

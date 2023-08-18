@@ -8,6 +8,7 @@
 #include "sevrovxboxcontroller.h"
 #include "sevrovlibrary.h"
 #include "sevrovcontroldata.h"
+#include "sevrovconnector.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -24,11 +25,19 @@ public:
 private slots:
     void on_btnJoystick_clicked();
 
+    void on_btnAUV_clicked();
+
+public slots:
+    void OnSocketProcessTelemetryDatagram();
+    void OnSocketConnect();
+    void OnSocketDisconnect();
+
 private:
     Ui::MainWindow *ui;
 
     SevROVXboxController *jsController;
     SevROVControlData controlData;
+    SevROVConnector rovConnector;
 
     QTimer *controlTimer;
 
