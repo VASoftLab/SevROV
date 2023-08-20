@@ -7,7 +7,9 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-    rovConnector.setMode(SevROVConnector::Mode::CONTROL_READ);
+    // Сервер должен уметь читать сигналы управления и писать телеметрию в ответ
+    rovConnector.setMode(SevROVConnector::Mode::CONTROL_READ |
+                         SevROVConnector::Mode::TELEMETRY_WRITE);
 
     connect(&rovConnector, SIGNAL(OnConnected()), this, SLOT(OnSocketConnect()));
     connect(&rovConnector, SIGNAL(OnDisconnected()), this, SLOT(OnSocketDisconnect()));
@@ -22,15 +24,17 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_pushButtonConnect_clicked()
 {
+    // Для сервера используем вариант с bind() для уставноки соединения
     if (rovConnector.getIsConnected())
     {
+        // Прекращаем прослушку IP и порта
         rovConnector.closeConnection();
     }
     else
     {
+        // Начинаем прослушку заданного IP и порта
         rovConnector.openConnection(ui->edIP->text(),
-                                    ui->edPortIn->text().toInt(),
-                                    ui->edPortOut->text().toInt());
+                                    ui->edPort->text().toInt());
     }
 }
 
@@ -64,6 +68,19 @@ void MainWindow::OnSocketProcessControlDatagram()
         ui->edCameraRotate->setText(QString::number(rovConnector.control.getCameraRotate()));
         ui->edResetInitialization->setText(QString::number(rovConnector.control.getResetInitialization()));
         ui->edLightsState->setText(QString::number(rovConnector.control.getLightsState()));
+
+        // Имитируем изменение телеметрии
+        rovConnector.telemetry.setRoll(QRandomGenerator::global()->bounded(256));
+        rovConnector.telemetry.setPitch(QRandomGenerator::global()->bounded(256));
+        rovConnector.telemetry.setYaw(QRandomGenerator::global()->bounded(256));
+        rovConnector.telemetry.setHeading(QRandomGenerator::global()->bounded(256));
+        rovConnector.telemetry.setDepth(QRandomGenerator::global()->bounded(256));
+
+        ui->edRoll->setText(QString::number(rovConnector.telemetry.getRoll(), 'f', 2));
+        ui->edPitch->setText(QString::number(rovConnector.telemetry.getPitch(), 'f', 2));
+        ui->edYaw->setText(QString::number(rovConnector.telemetry.getYaw(), 'f', 2));
+        ui->edHeading->setText(QString::number(rovConnector.telemetry.getHeading(), 'f', 2));
+        ui->edDepthAUV->setText(QString::number(rovConnector.telemetry.getDepth(), 'f', 2));
     }
 }
 

@@ -90,14 +90,14 @@ MainWindow::MainWindow(QWidget *parent)
     connect(controlTimer, &QTimer::timeout,
             this, &MainWindow::OnControlTimer);
 
-    // Создаем коннектор с AUV
+    // Создаем коннектор с AUV. Клиент должен уметь писать управление и читать телеметрию
     rovConnector.setMode(SevROVConnector::Mode::CONTROL_WRITE |
                          SevROVConnector::Mode::TELEMETRY_READ);
 
 
     connect(&rovConnector, SIGNAL(OnConnected()), this, SLOT(OnSocketConnect()));
     connect(&rovConnector, SIGNAL(OnDisconnected()), this, SLOT(OnSocketDisconnect()));
-    connect(&rovConnector, SIGNAL(OnProcessTelemetryDatagram()), this, SLOT(OnSocketProcessTelemetryDatagram()));
+    connect(&rovConnector, SIGNAL(OnProcessTelemetryDatagram()), this, SLOT(OnSocketProcessTelemetryDatagram()));    
 
     ui->edAUVConnection->setEnabled(false);
 }
@@ -120,18 +120,21 @@ void MainWindow::on_btnJoystick_clicked()
         jsController->OpenJoystick(ui->cbJoystickList->currentIndex());
 
         jsController->isRunning = true;
-        jsController->start();
+        jsController->start(); // Запуск процесса в поток
         ui->btnJoystick->setText("ОТКЛЮЧИТЬСЯ ОТ ДЖОЙСТИКА");
         jsConnected = true;
+
+        // IP b Port будут использоваться только для записи датаграммы
+        // Мы поймем, что ответ пришел, если поднимется событие OnProcessTelemetryDatagram
+        rovConnector.setIP(ui->edIP->text());
+        rovConnector.setPort(ui->edPort->text().toInt());
 
         controlTimer->start(100);
     }
     else
     {
 
-        jsController->CloseJoystick();
-
-        // TODO: Как правильно завершить поток?
+        jsController->CloseJoystick();        
         jsController->isRunning = false;
         jsController->quit();
         ui->btnJoystick->setText("ПОДКЛЮЧИТЬСЯ К ДЖОЙСТИКУ");
@@ -234,22 +237,46 @@ void MainWindow::OnControlTimer()
     ui->edResetInitialization->setText(QString::number(rovConnector.control.getResetInitialization()));
     ui->edLightsState->setText(QString::number(rovConnector.control.getLightsState()));
 
+    // При соединении с джойстиком уже задали IP и Port,
+    // которые будут использоваться для записи датаграммы
     if (rovConnector.getIsConnected())
         rovConnector.writeControlDatagram();
 }
 
 void MainWindow::on_btnAUV_clicked()
 {
+
+    // Для клиента держать постоянным открытым соедниение не нужно
+    // For UDP sockets, after binding, the signal QUdpSocket::readyRead()
+    // is emitted whenever a UDP datagram arrives on the specified
+    // address and port. Thus, this function is useful to write UDP servers.
+    // Т.е. bind нужно использовать только дла написания сервера.
+    // для клиента держать соединение с сервером получается не обязательно
+
+
+    //if (rovConnector.getIsConnected())
+    //{
+    //    rovConnector.closeConnection();
+    //}
+    //else
+    //{
+    //    // Создаем коннектор: Определяем IP и номер порта сервера
+    //    rovConnector.openConnection(ui->edIP->text(),
+    //                                ui->edPort->text().toInt());
+    //}
+
+    // Будем использовать connectToHost и disconnectFromHost
     if (rovConnector.getIsConnected())
     {
-        rovConnector.closeConnection();
+        rovConnector.disconnectFromHost();
     }
     else
     {
-        rovConnector.openConnection(ui->edIP->text(),
-                                    ui->edPortIn->text().toInt(),
-                                    ui->edPortOut->text().toInt());
+        // Создаем связь с сервером: Определяем IP и номер порта сервера
+        rovConnector.connectToHost(ui->edIP->text(),
+                                   ui->edPort->text().toInt());
     }
+
 }
 
 void MainWindow::OnSocketConnect()
@@ -272,7 +299,6 @@ void MainWindow::OnSocketProcessTelemetryDatagram()
     if ((rovConnector.getMode() & SevROVConnector::Mode::TELEMETRY_READ)
         == SevROVConnector::Mode::TELEMETRY_READ)
     {
-        // TODO: Вынести в отдельный поток?
         ui->edRoll->setText(QString::number(rovConnector.telemetry.getRoll(), 'f', 2));
         ui->edPitch->setText(QString::number(rovConnector.telemetry.getPitch(), 'f', 2));
         ui->edYaw->setText(QString::number(rovConnector.telemetry.getYaw(), 'f', 2));

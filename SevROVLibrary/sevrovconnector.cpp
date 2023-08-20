@@ -24,14 +24,9 @@ void SevROVConnector::setIP(QString ip)
     this->host = QHostAddress(ip);
 }
 
-void SevROVConnector::setPortIn(int port)
+void SevROVConnector::setPort(int port)
 {
-    this->portIn = port;
-}
-
-void SevROVConnector::setPortOut(int port)
-{
-    this->portOut = port;
+    this->port = port;
 }
 
 void SevROVConnector::writeTelemetryDatagram()
@@ -40,10 +35,23 @@ void SevROVConnector::writeTelemetryDatagram()
     if ((mode & SevROVConnector::Mode::TELEMETRY_WRITE)
         == SevROVConnector::Mode::TELEMETRY_WRITE)
     {
+        qint64 bytes = udpSocket.writeDatagram(telemetry.toByteArray(), host, port);
+        qDebug() << "[" << QDateTime::currentMSecsSinceEpoch()
+                 << "] Telemetry datagram:" << host.toString().toStdString().c_str()
+                 << ":" << port << "- packet size:" << bytes << "[bytes]";
+    }
+}
 
-        qint64 bytes = udpSocket.writeDatagram(telemetry.toByteArray(), host, portOut);
-        qDebug() << "Telemetry datagram:" << host.toString().toStdString().c_str()
-                 << ":" << portOut << "- packet size:" << bytes << "[bytes]";
+void SevROVConnector::writeTelemetryDatagram(QHostAddress _host, int _port)
+{
+    // Проверяем, разрешено ли коннектору писать телеметрию
+    if ((mode & SevROVConnector::Mode::TELEMETRY_WRITE)
+        == SevROVConnector::Mode::TELEMETRY_WRITE)
+    {
+        qint64 bytes = udpSocket.writeDatagram(telemetry.toByteArray(), _host, _port);
+        qDebug() << "[" << QDateTime::currentMSecsSinceEpoch()
+                 << "] Telemetry datagram:" << _host.toString().toStdString().c_str()
+                 << ":" << _port << "- packet size:" << bytes << "[bytes]";
     }
 }
 
@@ -53,10 +61,23 @@ void SevROVConnector::writeControlDatagram()
     if ((mode & SevROVConnector::Mode::CONTROL_WRITE)
         == SevROVConnector::Mode::CONTROL_WRITE)
     {
+        qint64 bytes = udpSocket.writeDatagram(control.toByteArray(), host, port);
+        qDebug() << "[" << QDateTime::currentMSecsSinceEpoch()
+                 << "] Control datagram:" << host.toString().toStdString().c_str()
+                 << ":" << port << "- packet size:" << bytes << "[bytes]";
+    }
+}
 
-        qint64 bytes = udpSocket.writeDatagram(control.toByteArray(), host, portOut);
-        qDebug() << "Control datagram:" << host.toString().toStdString().c_str()
-                 << ":" << portOut << "- packet size:" << bytes << "[bytes]";
+void SevROVConnector::writeControlDatagram(QHostAddress _host, int _port)
+{
+    // Проверяем, разрешено ли коннектору писать телеметрию
+    if ((mode & SevROVConnector::Mode::CONTROL_WRITE)
+        == SevROVConnector::Mode::CONTROL_WRITE)
+    {
+        qint64 bytes = udpSocket.writeDatagram(control.toByteArray(), _host, _port);
+        qDebug() << "[" << QDateTime::currentMSecsSinceEpoch()
+                 << "] Control datagram:" << _host.toString().toStdString().c_str()
+                 << ":" << _port << "- packet size:" << bytes << "[bytes]";
     }
 }
 
@@ -109,9 +130,13 @@ void SevROVConnector::processDatagram()
             == SevROVConnector::Mode::CONTROL_READ)
         {
             QByteArray datagram;
+            QHostAddress senderAddress = QHostAddress::Null;
+            quint16 senderPort = 0;
+
             do {
                 datagram.resize(udpSocket.pendingDatagramSize());
-                udpSocket.readDatagram(datagram.data(), datagram.size());
+                udpSocket.readDatagram(datagram.data(), datagram.size(),
+                                       &senderAddress, &senderPort);
             } while (udpSocket.hasPendingDatagrams());
 
             QDataStream in(&datagram, QIODevice::ReadOnly);
@@ -152,57 +177,63 @@ void SevROVConnector::processDatagram()
             control.setLightsState(LightsState);
 
             emit OnProcessControlDatagram();
+
+            // Если коннектор должен ответить на датаграмму -
+            // отправляем телеметрию
+            if ((mode & SevROVConnector::Mode::TELEMETRY_WRITE)
+                == SevROVConnector::Mode::TELEMETRY_WRITE)
+            {
+                if ((senderAddress != QHostAddress::Null) && (senderPort != 0))
+                    writeTelemetryDatagram(senderAddress, senderPort);
+            }
         }
     }
-
-
-
 }
 
+// !!! Должно использоваться только для коннектора в режиме сервера !!!
 void SevROVConnector::openConnection()
 {
     // Открываем канал для входящих сообщений
-    bool result = udpSocket.bind(host, portIn);
+    bool result = udpSocket.bind(host, port);
 
     if (result)
         onConnected();
     else
         onDisconnected();
+}
+// !!! Должно использоваться только для коннектора в режиме сервера !!!
+void SevROVConnector::openConnection(int port)
+{
+    this->ip = "127.0.0.1";
+    this->host = QHostAddress(ip);
+    this->port = port;
 
-    //udpSocket.bind(host, port);
-    //udpSocket.connectToHost(host, port);
+    bool result = udpSocket.bind(host, port);
 
-    //udpSocket.bind(port);
-    //udpSocket.connectToHost(host, port);
-    //udpSocket.waitForConnected();
+    if (result)
+        onConnected();
+    else
+        onDisconnected();
 }
 
-void SevROVConnector::openConnection(QString ip, int portIn, int portOut)
-{
+// !!! Должно использоваться только для коннектора в режиме сервера !!!
+void SevROVConnector::openConnection(QString ip, int port)
+{    
     this->ip = ip;
     this->host = QHostAddress(ip);
-    this->portIn = portIn;
-    this->portOut = portOut;
+    this->port = port;
 
-    bool result = udpSocket.bind(host, portIn);
+    bool result = udpSocket.bind(host, port);
 
     if (result)
         onConnected();
     else
         onDisconnected();
-
-    //udpSocket.bind(host, port);
-    //udpSocket.connectToHost(host, port);
-
-    //udpSocket.bind(port);
-    //udpSocket.connectToHost(host, port);
-    //udpSocket.waitForConnected();
 }
-
+// !!! Должно использоваться только для коннектора в режиме сервера !!!
 void SevROVConnector::closeConnection()
 {
     udpSocket.close();
-    //udpSocket.disconnectFromHost();
 }
 
 void SevROVConnector::onConnected()
@@ -230,4 +261,13 @@ void SevROVConnector::setMode(std::uint8_t mode)
 std::uint8_t SevROVConnector::getMode()
 {
     return mode;
+}
+
+void SevROVConnector::connectToHost(QString ip, int port)
+{
+    udpSocket.connectToHost(QHostAddress(ip), port, QIODeviceBase::ReadWrite);
+}
+void SevROVConnector::disconnectFromHost()
+{
+    udpSocket.disconnectFromHost();
 }

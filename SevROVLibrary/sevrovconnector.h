@@ -28,23 +28,27 @@ public:
     SevROVTelemetryData telemetry;
 
     void setIP(QString ip);
-    void setPortIn(int port);
-    void setPortOut(int port);
-    void writeTelemetryDatagram();
+    void setPort(int port);
+    void writeTelemetryDatagram();    
+    void writeTelemetryDatagram(QHostAddress _host, int _port);
     void writeControlDatagram();
+    void writeControlDatagram(QHostAddress _host, int _port);
 
     void openConnection();
-    void openConnection(QString ip, int portIn, int portOut);
+    void openConnection(int port);
+    void openConnection(QString ip, int port);
     void closeConnection();
     bool getIsConnected();
+
+    void connectToHost(QString ip, int port);
+    void disconnectFromHost();
 
 private:
     QUdpSocket udpSocket;
 
     QString ip;
     QHostAddress host;
-    int portIn;     // Порт для прослушивания входящих сообщений
-    int portOut;    // Порт для отпрпавки датаграм
+    int port;
     bool isConnected = false;
 
     std::uint8_t mode;
