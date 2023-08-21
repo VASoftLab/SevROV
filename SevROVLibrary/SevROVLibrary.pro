@@ -32,5 +32,12 @@ unix {
 }
 !isEmpty(target.path): INSTALLS += target
 
-LIBS += -L D:/SDL2-2.28.2-mingw/x86_64-w64-mingw32/lib -lSDL2
-INCLUDEPATH += D:/SDL2-2.28.2-mingw/x86_64-w64-mingw32/include
+
+win32 {
+    LIBS += -L D:/SDL2-2.28.2-mingw/x86_64-w64-mingw32/lib -lSDL2
+    INCLUDEPATH += D:/SDL2-2.28.2-mingw/x86_64-w64-mingw32/include
+}
+unix
+{
+
+}
