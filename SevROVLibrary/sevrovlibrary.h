@@ -23,6 +23,8 @@ struct XboxGamepad {
     short Menu;     // 7
 };
 
+// Меппинг осей зависит от версии операционной системы Windows / Linux
+#ifdef Q_OS_WIN32
 enum xbox_axis {
     LStickX,    // 0
     LStickY,    // 1
@@ -31,6 +33,20 @@ enum xbox_axis {
     LTrigger,   // 4
     RTrigger    // 5
 };
+#endif
+
+#ifdef Q_OS_LINUX
+enum xbox_axis {
+    LStickX,    // 0
+    LStickY,    // 1
+    LTrigger,   // 2
+    RStickX,    // 3
+    RStickY,    // 4
+    RTrigger    // 5
+};
+#endif
+
+
 enum xbox_butn {
     A,          // 0
     B,          // 1

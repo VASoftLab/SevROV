@@ -1,6 +1,6 @@
 #include "sevrovxboxcontroller.h"
 
-SevROVXboxController::SevROVXboxController(QObject *parent, int index)
+SevROVXboxController::SevROVXboxController(QObject *parent)
     : QThread(parent)
 {
     if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_JOYSTICK) >= 0)

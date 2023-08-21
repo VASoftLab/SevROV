@@ -43,5 +43,6 @@ win32 {
 }
 unix
 {
-
+    LIBS += -L/usr/local/lib -lSDL2
+    INCLUDEPATH += /usr/include/SDL2
 }

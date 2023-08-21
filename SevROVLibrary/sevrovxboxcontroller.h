@@ -13,7 +13,7 @@ class SevROVXboxController : public QThread
 {
     Q_OBJECT
 public:
-    SevROVXboxController(QObject *parent = nullptr, int index = 0);
+    SevROVXboxController(QObject *parent = nullptr);
     ~SevROVXboxController();
 
     void OpenJoystick(int index);
