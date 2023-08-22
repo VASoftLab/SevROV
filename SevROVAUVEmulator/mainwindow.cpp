@@ -1,11 +1,19 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include <QScreen>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+    // Фиксируем размер окна и убираем иконку ресайза
+    setFixedSize(QSize(522, 456));
+    statusBar()->setSizeGripEnabled(false);
+    // Центрируем окно в пределах экрана
+    move(screen()->geometry().center() - frameGeometry().center());
+    setWindowTitle("ТНПА симулятор");
 
     // Сервер должен уметь читать сигналы управления и писать телеметрию в ответ
     rovConnector.setMode(SevROVConnector::Mode::CONTROL_READ |

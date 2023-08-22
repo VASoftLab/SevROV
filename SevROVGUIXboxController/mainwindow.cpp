@@ -1,11 +1,19 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include <QScreen>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+    // Фиксируем размер окна и убираем иконку ресайза
+    setFixedSize(QSize(706, 660));
+    statusBar()->setSizeGripEnabled(false);
+    // Центрируем окно в пределах экрана
+    move(screen()->geometry().center() - frameGeometry().center());
+    setWindowTitle("Модуль управления");
 
     // Создаем объект джойстик-контроллера и получаем список доступных джойстиков
     jsController = new SevROVXboxController();
