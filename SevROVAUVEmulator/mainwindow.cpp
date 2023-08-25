@@ -9,7 +9,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
 
     // Фиксируем размер окна и убираем иконку ресайза
-    setFixedSize(QSize(522, 456));
+    setFixedSize(QSize(522, 670));
     statusBar()->setSizeGripEnabled(false);
     // Центрируем окно в пределах экрана
     move(screen()->geometry().center() - frameGeometry().center());
@@ -68,14 +68,40 @@ void MainWindow::OnSocketProcessControlDatagram()
 
         ui->edHorizontalVectorX->setText(QString::number(rovConnector.control.getHorizontalVectorX()));
         ui->edHorizontalVectorY->setText(QString::number(rovConnector.control.getHorizontalVectorY()));
-        ui->edAngularVelocityZ->setText(QString::number(rovConnector.control.getAngularVelocityZ()));
         ui->edVericalThrust->setText(QString::number(rovConnector.control.getVericalThrust()));
-        ui->edDepth->setText(QString::number(rovConnector.control.getDepth()));
+        ui->edPowerTarget->setText(QString::number(rovConnector.control.getPowerTarget()));
+        ui->edAngularVelocityZ->setText(QString::number(rovConnector.control.getAngularVelocityZ()));
+
         ui->edManipulatorState->setText(QString::number(rovConnector.control.getManipulatorState()));
         ui->edManipulatorRotate->setText(QString::number(rovConnector.control.getManipulatorRotate()));
         ui->edCameraRotate->setText(QString::number(rovConnector.control.getCameraRotate()));
+
         ui->edResetInitialization->setText(QString::number(rovConnector.control.getResetInitialization()));
         ui->edLightsState->setText(QString::number(rovConnector.control.getLightsState()));
+        ui->edStabilizationState->setText(QString::number(rovConnector.control.getStabilizationState()));
+
+        ui->edRollInc->setText(QString::number(rovConnector.control.getRollInc()));
+        ui->edPitchInc->setText(QString::number(rovConnector.control.getPitchInc()));
+
+        ui->edResetPosition->setText(QString::number(rovConnector.control.getResetPosition()));
+
+        ui->edRollKp->setText(QString::number(rovConnector.control.getRollKp()));
+        ui->edRollKi->setText(QString::number(rovConnector.control.getRollKi()));
+        ui->edRollKd->setText(QString::number(rovConnector.control.getRollKd()));
+
+        ui->edPitchKp->setText(QString::number(rovConnector.control.getPitchKp()));
+        ui->edPitchKi->setText(QString::number(rovConnector.control.getPitchKi()));
+        ui->edPitchKd->setText(QString::number(rovConnector.control.getPitchKd()));
+
+        ui->edYawKp->setText(QString::number(rovConnector.control.getYawKp()));
+        ui->edYawKi->setText(QString::number(rovConnector.control.getYawKi()));
+        ui->edYawKd->setText(QString::number(rovConnector.control.getYawKd()));
+
+        ui->edDepthKp->setText(QString::number(rovConnector.control.getDepthKp()));
+        ui->edDepthKi->setText(QString::number(rovConnector.control.getDepthKi()));
+        ui->edDepthKd->setText(QString::number(rovConnector.control.getDepthKd()));
+
+        ui->edUpdatePID->setText(QString::number(rovConnector.control.getUpdatePID()));
 
         // Имитируем изменение телеметрии
         rovConnector.telemetry.setRoll(QRandomGenerator::global()->bounded(256));
@@ -83,12 +109,17 @@ void MainWindow::OnSocketProcessControlDatagram()
         rovConnector.telemetry.setYaw(QRandomGenerator::global()->bounded(256));
         rovConnector.telemetry.setHeading(QRandomGenerator::global()->bounded(256));
         rovConnector.telemetry.setDepth(QRandomGenerator::global()->bounded(256));
+        rovConnector.telemetry.setRollSetPoint(QRandomGenerator::global()->bounded(256));
+        rovConnector.telemetry.setPitchSetPoint(QRandomGenerator::global()->bounded(256));
 
         ui->edRoll->setText(QString::number(rovConnector.telemetry.getRoll(), 'f', 2));
         ui->edPitch->setText(QString::number(rovConnector.telemetry.getPitch(), 'f', 2));
         ui->edYaw->setText(QString::number(rovConnector.telemetry.getYaw(), 'f', 2));
         ui->edHeading->setText(QString::number(rovConnector.telemetry.getHeading(), 'f', 2));
         ui->edDepthAUV->setText(QString::number(rovConnector.telemetry.getDepth(), 'f', 2));
+
+        ui->edRollSetPoint->setText(QString::number(rovConnector.telemetry.getRollSetPoint(), 'f', 2));
+        ui->edPitchSetPoint->setText(QString::number(rovConnector.telemetry.getPitchSetPoint(), 'f', 2));
     }
 }
 

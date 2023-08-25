@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>706</width>
-    <height>660</height>
+    <width>992</width>
+    <height>720</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -614,7 +614,7 @@
       <x>410</x>
       <y>50</y>
       <width>281</width>
-      <height>351</height>
+      <height>621</height>
      </rect>
     </property>
     <property name="font">
@@ -701,7 +701,7 @@
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>100</y>
+       <y>160</y>
        <width>151</width>
        <height>24</height>
       </rect>
@@ -719,7 +719,7 @@
      <property name="geometry">
       <rect>
        <x>200</x>
-       <y>100</y>
+       <y>160</y>
        <width>61</width>
        <height>24</height>
       </rect>
@@ -737,7 +737,7 @@
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>130</y>
+       <y>100</y>
        <width>151</width>
        <height>24</height>
       </rect>
@@ -755,7 +755,7 @@
      <property name="geometry">
       <rect>
        <x>200</x>
-       <y>130</y>
+       <y>100</y>
        <width>61</width>
        <height>24</height>
       </rect>
@@ -769,11 +769,11 @@
       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
      </property>
     </widget>
-    <widget class="QLabel" name="lbDepth">
+    <widget class="QLabel" name="lbPowerTarget">
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>160</y>
+       <y>130</y>
        <width>151</width>
        <height>24</height>
       </rect>
@@ -784,14 +784,14 @@
       </font>
      </property>
      <property name="text">
-      <string>Depth</string>
+      <string>PowerTarget</string>
      </property>
     </widget>
-    <widget class="QLineEdit" name="edDepth">
+    <widget class="QLineEdit" name="edPowerTarget">
      <property name="geometry">
       <rect>
        <x>200</x>
-       <y>160</y>
+       <y>130</y>
        <width>61</width>
        <height>24</height>
       </rect>
@@ -985,14 +985,482 @@
       <string>LightsState</string>
      </property>
     </widget>
+    <widget class="QLineEdit" name="edStabilizationState">
+     <property name="geometry">
+      <rect>
+       <x>200</x>
+       <y>340</y>
+       <width>61</width>
+       <height>24</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="lbStabilizationState">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>340</y>
+       <width>141</width>
+       <height>24</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>StabilizationState</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="edRollInc">
+     <property name="geometry">
+      <rect>
+       <x>200</x>
+       <y>370</y>
+       <width>61</width>
+       <height>24</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="lbRollInc">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>370</y>
+       <width>141</width>
+       <height>24</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>RollInc</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="edPitchInc">
+     <property name="geometry">
+      <rect>
+       <x>200</x>
+       <y>400</y>
+       <width>61</width>
+       <height>24</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="lbPitchInc">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>400</y>
+       <width>141</width>
+       <height>24</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>PitchInc</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="edResetPosition">
+     <property name="geometry">
+      <rect>
+       <x>200</x>
+       <y>430</y>
+       <width>61</width>
+       <height>24</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="lbResetPosition">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>430</y>
+       <width>141</width>
+       <height>24</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>ResetPosition</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="edRollKp">
+     <property name="geometry">
+      <rect>
+       <x>70</x>
+       <y>460</y>
+       <width>51</width>
+       <height>24</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="edRollKi">
+     <property name="geometry">
+      <rect>
+       <x>130</x>
+       <y>460</y>
+       <width>61</width>
+       <height>24</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="edRollKd">
+     <property name="geometry">
+      <rect>
+       <x>200</x>
+       <y>460</y>
+       <width>61</width>
+       <height>24</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="edPitchKp">
+     <property name="geometry">
+      <rect>
+       <x>70</x>
+       <y>490</y>
+       <width>51</width>
+       <height>24</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="edPitchKd">
+     <property name="geometry">
+      <rect>
+       <x>200</x>
+       <y>490</y>
+       <width>61</width>
+       <height>24</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="edPitchKi">
+     <property name="geometry">
+      <rect>
+       <x>130</x>
+       <y>490</y>
+       <width>61</width>
+       <height>24</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="edYawKp">
+     <property name="geometry">
+      <rect>
+       <x>70</x>
+       <y>520</y>
+       <width>51</width>
+       <height>24</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="edYawKd">
+     <property name="geometry">
+      <rect>
+       <x>200</x>
+       <y>520</y>
+       <width>61</width>
+       <height>24</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="edYawKi">
+     <property name="geometry">
+      <rect>
+       <x>130</x>
+       <y>520</y>
+       <width>61</width>
+       <height>24</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="edDepthKp">
+     <property name="geometry">
+      <rect>
+       <x>70</x>
+       <y>550</y>
+       <width>51</width>
+       <height>24</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="edDepthKd">
+     <property name="geometry">
+      <rect>
+       <x>200</x>
+       <y>550</y>
+       <width>61</width>
+       <height>24</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="edDepthKi">
+     <property name="geometry">
+      <rect>
+       <x>130</x>
+       <y>550</y>
+       <width>61</width>
+       <height>24</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="lbUpdatePID">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>580</y>
+       <width>141</width>
+       <height>24</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>UpdatePID</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="edUpdatePID">
+     <property name="geometry">
+      <rect>
+       <x>200</x>
+       <y>580</y>
+       <width>61</width>
+       <height>24</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="lbRollPIDController">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>460</y>
+       <width>41</width>
+       <height>24</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Roll</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="lbPitchPIDController">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>490</y>
+       <width>41</width>
+       <height>24</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Pitch</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="lbYawPIDController">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>520</y>
+       <width>41</width>
+       <height>24</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Yaw</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="lbDepthPIDController">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>550</y>
+       <width>41</width>
+       <height>24</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Depth</string>
+     </property>
+    </widget>
    </widget>
    <widget class="QGroupBox" name="gbAUVConnection">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>410</y>
-      <width>391</width>
-      <height>201</height>
+      <x>700</x>
+      <y>50</y>
+      <width>281</width>
+      <height>211</height>
      </rect>
     </property>
     <property name="font">
@@ -1006,7 +1474,7 @@
     <widget class="QLineEdit" name="edIP">
      <property name="geometry">
       <rect>
-       <x>230</x>
+       <x>120</x>
        <y>40</y>
        <width>141</width>
        <height>24</height>
@@ -1045,7 +1513,7 @@
     <widget class="QLineEdit" name="edPort">
      <property name="geometry">
       <rect>
-       <x>310</x>
+       <x>200</x>
        <y>70</y>
        <width>61</width>
        <height>24</height>
@@ -1086,7 +1554,7 @@
       <rect>
        <x>20</x>
        <y>170</y>
-       <width>351</width>
+       <width>241</width>
        <height>24</height>
       </rect>
      </property>
@@ -1113,7 +1581,7 @@
       <rect>
        <x>20</x>
        <y>130</y>
-       <width>351</width>
+       <width>241</width>
        <height>32</height>
       </rect>
      </property>
@@ -1130,10 +1598,10 @@
    <widget class="QGroupBox" name="gbTelemetry">
     <property name="geometry">
      <rect>
-      <x>410</x>
-      <y>410</y>
+      <x>700</x>
+      <y>260</y>
       <width>281</width>
-      <height>201</height>
+      <height>411</height>
      </rect>
     </property>
     <property name="font">
@@ -1324,6 +1792,78 @@
       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
      </property>
     </widget>
+    <widget class="QLineEdit" name="edRollSetPoint">
+     <property name="geometry">
+      <rect>
+       <x>200</x>
+       <y>190</y>
+       <width>61</width>
+       <height>24</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="lbRollSetPoint">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>190</y>
+       <width>151</width>
+       <height>24</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Roll SetPoint</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="edPitchSetPoint">
+     <property name="geometry">
+      <rect>
+       <x>200</x>
+       <y>220</y>
+       <width>61</width>
+       <height>24</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="lbPitchSetPoint">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>220</y>
+       <width>151</width>
+       <height>24</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Pitch SetPoint</string>
+     </property>
+    </widget>
    </widget>
    <widget class="QComboBox" name="cbJoystickList">
     <property name="geometry">
@@ -1340,19 +1880,598 @@
      </font>
     </property>
    </widget>
+   <widget class="QGroupBox" name="gbPID">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>400</y>
+      <width>391</width>
+      <height>271</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="title">
+     <string>Контроллер</string>
+    </property>
+    <widget class="QLabel" name="lbPowerLimit">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>40</y>
+       <width>91</width>
+       <height>24</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Power Limit</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="lbRollPID">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>100</y>
+       <width>71</width>
+       <height>24</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Roll</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="lbPitchPID">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>130</y>
+       <width>71</width>
+       <height>24</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Pitch</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="lbYawPID">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>160</y>
+       <width>71</width>
+       <height>24</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Yaw</string>
+     </property>
+    </widget>
+    <widget class="QDoubleSpinBox" name="sbPowerLimit">
+     <property name="geometry">
+      <rect>
+       <x>110</x>
+       <y>40</y>
+       <width>62</width>
+       <height>28</height>
+      </rect>
+     </property>
+     <property name="maximum">
+      <double>100.000000000000000</double>
+     </property>
+     <property name="singleStep">
+      <double>0.100000000000000</double>
+     </property>
+     <property name="value">
+      <double>0.100000000000000</double>
+     </property>
+    </widget>
+    <widget class="QLabel" name="lbKp">
+     <property name="geometry">
+      <rect>
+       <x>110</x>
+       <y>70</y>
+       <width>61</width>
+       <height>24</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Kp</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="lbKi">
+     <property name="geometry">
+      <rect>
+       <x>180</x>
+       <y>70</y>
+       <width>61</width>
+       <height>24</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Ki</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="lbKd">
+     <property name="geometry">
+      <rect>
+       <x>250</x>
+       <y>70</y>
+       <width>61</width>
+       <height>24</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Kd</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+    <widget class="QDoubleSpinBox" name="sbRollKp">
+     <property name="geometry">
+      <rect>
+       <x>110</x>
+       <y>100</y>
+       <width>62</width>
+       <height>28</height>
+      </rect>
+     </property>
+     <property name="maximum">
+      <double>100.000000000000000</double>
+     </property>
+     <property name="singleStep">
+      <double>0.100000000000000</double>
+     </property>
+     <property name="value">
+      <double>0.100000000000000</double>
+     </property>
+    </widget>
+    <widget class="QDoubleSpinBox" name="sbPitchKp">
+     <property name="geometry">
+      <rect>
+       <x>110</x>
+       <y>130</y>
+       <width>62</width>
+       <height>28</height>
+      </rect>
+     </property>
+     <property name="maximum">
+      <double>100.000000000000000</double>
+     </property>
+     <property name="singleStep">
+      <double>0.100000000000000</double>
+     </property>
+     <property name="value">
+      <double>0.100000000000000</double>
+     </property>
+    </widget>
+    <widget class="QDoubleSpinBox" name="sbYawKp">
+     <property name="geometry">
+      <rect>
+       <x>110</x>
+       <y>160</y>
+       <width>62</width>
+       <height>28</height>
+      </rect>
+     </property>
+     <property name="maximum">
+      <double>100.000000000000000</double>
+     </property>
+     <property name="singleStep">
+      <double>0.100000000000000</double>
+     </property>
+     <property name="value">
+      <double>0.100000000000000</double>
+     </property>
+    </widget>
+    <widget class="QDoubleSpinBox" name="sbRollKi">
+     <property name="geometry">
+      <rect>
+       <x>180</x>
+       <y>100</y>
+       <width>62</width>
+       <height>28</height>
+      </rect>
+     </property>
+     <property name="maximum">
+      <double>100.000000000000000</double>
+     </property>
+     <property name="singleStep">
+      <double>0.100000000000000</double>
+     </property>
+     <property name="value">
+      <double>0.100000000000000</double>
+     </property>
+    </widget>
+    <widget class="QDoubleSpinBox" name="sbPitchKi">
+     <property name="geometry">
+      <rect>
+       <x>180</x>
+       <y>130</y>
+       <width>62</width>
+       <height>28</height>
+      </rect>
+     </property>
+     <property name="maximum">
+      <double>100.000000000000000</double>
+     </property>
+     <property name="singleStep">
+      <double>0.100000000000000</double>
+     </property>
+     <property name="value">
+      <double>0.100000000000000</double>
+     </property>
+    </widget>
+    <widget class="QDoubleSpinBox" name="sbYawKi">
+     <property name="geometry">
+      <rect>
+       <x>180</x>
+       <y>160</y>
+       <width>62</width>
+       <height>28</height>
+      </rect>
+     </property>
+     <property name="maximum">
+      <double>100.000000000000000</double>
+     </property>
+     <property name="singleStep">
+      <double>0.100000000000000</double>
+     </property>
+     <property name="value">
+      <double>0.100000000000000</double>
+     </property>
+    </widget>
+    <widget class="QDoubleSpinBox" name="sbRollKd">
+     <property name="geometry">
+      <rect>
+       <x>250</x>
+       <y>100</y>
+       <width>62</width>
+       <height>28</height>
+      </rect>
+     </property>
+     <property name="maximum">
+      <double>100.000000000000000</double>
+     </property>
+     <property name="singleStep">
+      <double>0.100000000000000</double>
+     </property>
+     <property name="value">
+      <double>0.100000000000000</double>
+     </property>
+    </widget>
+    <widget class="QDoubleSpinBox" name="sbPitchKd">
+     <property name="geometry">
+      <rect>
+       <x>250</x>
+       <y>130</y>
+       <width>62</width>
+       <height>28</height>
+      </rect>
+     </property>
+     <property name="maximum">
+      <double>100.000000000000000</double>
+     </property>
+     <property name="singleStep">
+      <double>0.100000000000000</double>
+     </property>
+     <property name="value">
+      <double>0.100000000000000</double>
+     </property>
+    </widget>
+    <widget class="QDoubleSpinBox" name="sbYawKd">
+     <property name="geometry">
+      <rect>
+       <x>250</x>
+       <y>160</y>
+       <width>62</width>
+       <height>28</height>
+      </rect>
+     </property>
+     <property name="maximum">
+      <double>100.000000000000000</double>
+     </property>
+     <property name="singleStep">
+      <double>0.100000000000000</double>
+     </property>
+     <property name="value">
+      <double>0.100000000000000</double>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="cbRollStab">
+     <property name="geometry">
+      <rect>
+       <x>339</x>
+       <y>100</y>
+       <width>16</width>
+       <height>28</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QDoubleSpinBox" name="sbDepthKp">
+     <property name="geometry">
+      <rect>
+       <x>110</x>
+       <y>190</y>
+       <width>62</width>
+       <height>28</height>
+      </rect>
+     </property>
+     <property name="maximum">
+      <double>100.000000000000000</double>
+     </property>
+     <property name="singleStep">
+      <double>0.100000000000000</double>
+     </property>
+     <property name="value">
+      <double>0.100000000000000</double>
+     </property>
+    </widget>
+    <widget class="QLabel" name="lbDepthPID">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>190</y>
+       <width>71</width>
+       <height>24</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Depth</string>
+     </property>
+    </widget>
+    <widget class="QDoubleSpinBox" name="sbDepthKi">
+     <property name="geometry">
+      <rect>
+       <x>180</x>
+       <y>190</y>
+       <width>62</width>
+       <height>28</height>
+      </rect>
+     </property>
+     <property name="maximum">
+      <double>100.000000000000000</double>
+     </property>
+     <property name="singleStep">
+      <double>0.100000000000000</double>
+     </property>
+     <property name="value">
+      <double>0.100000000000000</double>
+     </property>
+    </widget>
+    <widget class="QDoubleSpinBox" name="sbDepthKd">
+     <property name="geometry">
+      <rect>
+       <x>250</x>
+       <y>190</y>
+       <width>62</width>
+       <height>28</height>
+      </rect>
+     </property>
+     <property name="maximum">
+      <double>100.000000000000000</double>
+     </property>
+     <property name="singleStep">
+      <double>0.100000000000000</double>
+     </property>
+     <property name="value">
+      <double>0.100000000000000</double>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="cbPitchStab">
+     <property name="geometry">
+      <rect>
+       <x>339</x>
+       <y>130</y>
+       <width>16</width>
+       <height>28</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="cbYawStab">
+     <property name="geometry">
+      <rect>
+       <x>339</x>
+       <y>160</y>
+       <width>16</width>
+       <height>28</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="cbDepthStab">
+     <property name="geometry">
+      <rect>
+       <x>339</x>
+       <y>190</y>
+       <width>16</width>
+       <height>28</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QLabel" name="lbStabilization">
+     <property name="geometry">
+      <rect>
+       <x>320</x>
+       <y>70</y>
+       <width>51</width>
+       <height>24</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Stab</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pbPIDUpdate">
+     <property name="geometry">
+      <rect>
+       <x>110</x>
+       <y>230</y>
+       <width>201</width>
+       <height>32</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>PID Update</string>
+     </property>
+    </widget>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>706</width>
+     <width>992</width>
      <height>21</height>
     </rect>
    </property>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
+ <tabstops>
+  <tabstop>btnJoystick</tabstop>
+  <tabstop>cbJoystickList</tabstop>
+  <tabstop>edIP</tabstop>
+  <tabstop>edPort</tabstop>
+  <tabstop>btnAUV</tabstop>
+  <tabstop>edAUVConnection</tabstop>
+  <tabstop>edLStickX</tabstop>
+  <tabstop>edLStickY</tabstop>
+  <tabstop>edRStickX</tabstop>
+  <tabstop>edRStickY</tabstop>
+  <tabstop>edLTrigger</tabstop>
+  <tabstop>edRTrigger</tabstop>
+  <tabstop>edA</tabstop>
+  <tabstop>edB</tabstop>
+  <tabstop>edX</tabstop>
+  <tabstop>edY</tabstop>
+  <tabstop>edLBumper</tabstop>
+  <tabstop>edRBumper</tabstop>
+  <tabstop>edView</tabstop>
+  <tabstop>edMenu</tabstop>
+  <tabstop>edDPad</tabstop>
+  <tabstop>sbPowerLimit</tabstop>
+  <tabstop>sbRollKp</tabstop>
+  <tabstop>sbRollKi</tabstop>
+  <tabstop>sbRollKd</tabstop>
+  <tabstop>cbRollStab</tabstop>
+  <tabstop>sbPitchKp</tabstop>
+  <tabstop>sbPitchKi</tabstop>
+  <tabstop>sbPitchKd</tabstop>
+  <tabstop>cbPitchStab</tabstop>
+  <tabstop>sbYawKp</tabstop>
+  <tabstop>sbYawKi</tabstop>
+  <tabstop>sbYawKd</tabstop>
+  <tabstop>cbYawStab</tabstop>
+  <tabstop>sbDepthKp</tabstop>
+  <tabstop>sbDepthKi</tabstop>
+  <tabstop>sbDepthKd</tabstop>
+  <tabstop>cbDepthStab</tabstop>
+  <tabstop>pbPIDUpdate</tabstop>
+  <tabstop>edHorizontalVectorX</tabstop>
+  <tabstop>edHorizontalVectorY</tabstop>
+  <tabstop>edVericalThrust</tabstop>
+  <tabstop>edPowerTarget</tabstop>
+  <tabstop>edAngularVelocityZ</tabstop>
+  <tabstop>edManipulatorState</tabstop>
+  <tabstop>edManipulatorRotate</tabstop>
+  <tabstop>edCameraRotate</tabstop>
+  <tabstop>edResetInitialization</tabstop>
+  <tabstop>edLightsState</tabstop>
+  <tabstop>edStabilizationState</tabstop>
+  <tabstop>edRollInc</tabstop>
+  <tabstop>edPitchInc</tabstop>
+  <tabstop>edResetPosition</tabstop>
+  <tabstop>edRollKp</tabstop>
+  <tabstop>edRollKi</tabstop>
+  <tabstop>edRollKd</tabstop>
+  <tabstop>edPitchKp</tabstop>
+  <tabstop>edPitchKi</tabstop>
+  <tabstop>edPitchKd</tabstop>
+  <tabstop>edYawKp</tabstop>
+  <tabstop>edYawKi</tabstop>
+  <tabstop>edYawKd</tabstop>
+  <tabstop>edDepthKp</tabstop>
+  <tabstop>edDepthKi</tabstop>
+  <tabstop>edDepthKd</tabstop>
+  <tabstop>edUpdatePID</tabstop>
+  <tabstop>edRoll</tabstop>
+  <tabstop>edPitch</tabstop>
+  <tabstop>edYaw</tabstop>
+  <tabstop>edHeading</tabstop>
+  <tabstop>edDepthAUV</tabstop>
+  <tabstop>edRollSetPoint</tabstop>
+  <tabstop>edPitchSetPoint</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

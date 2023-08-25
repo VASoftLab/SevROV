@@ -15,6 +15,7 @@ SOURCES += \
     sevrovcontroldata.cpp \
     sevrovdata.cpp \
     sevrovlibrary.cpp \
+    sevrovpidcontroller.cpp \
     sevrovtelemetrydata.cpp \
     sevrovxboxcontroller.cpp
 
@@ -23,6 +24,7 @@ HEADERS += \
     sevrovcontroldata.h \
     sevrovdata.h \
     sevrovlibrary.h \
+    sevrovpidcontroller.h \
     sevrovtelemetrydata.h \
     sevrovxboxcontroller.h
 

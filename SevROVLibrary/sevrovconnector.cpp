@@ -83,8 +83,7 @@ void SevROVConnector::writeControlDatagram(QHostAddress _host, int _port)
 
 void SevROVConnector::processDatagram()
 {
-    // Размер пакета с телеметрией = 20 байт
-    if (udpSocket.pendingDatagramSize() == 20)
+    if (udpSocket.pendingDatagramSize() == TELEMETRY_PACKET_SIZE)
     {
         // Проверяем, разрешено ли коннектору читать телеметрию
         if ((mode & SevROVConnector::Mode::TELEMETRY_READ)
@@ -105,25 +104,30 @@ void SevROVConnector::processDatagram()
             float Yaw;
             float Heading;
             float Depth;
+            float RollSetPoint;
+            float PitchSetPoint;
 
             in >> Roll;
             in >> Pitch;
             in >> Yaw;
             in >> Heading;
             in >> Depth;
+            in >> RollSetPoint;
+            in >> PitchSetPoint;
 
             telemetry.setRoll(Roll);
             telemetry.setPitch(Pitch);
             telemetry.setYaw(Yaw);
             telemetry.setHeading(Heading);
             telemetry.setDepth(Depth);
+            telemetry.setRollSetPoint(RollSetPoint);
+            telemetry.setPitchSetPoint(PitchSetPoint);
 
             emit OnProcessTelemetryDatagram();
         }
     }
 
-    // Размер пакета с управлением = 34 байт
-    if (udpSocket.pendingDatagramSize() == 34)
+    if (udpSocket.pendingDatagramSize() == CONTROL_PACKET_SIZE)
     {
         // Проверяем, разрешено ли коннектору читать телеметрию
         if ((mode & SevROVConnector::Mode::CONTROL_READ)
@@ -146,35 +150,86 @@ void SevROVConnector::processDatagram()
             float HorizontalVectorX;
             float HorizontalVectorY;
             float VericalThrust;
-            float Depth;
+            float PowerTarget;
             float AngularVelocityZ;
             float ManipulatorState;
             float ManipulatorRotate;
             float CameraRotate;
             int8_t ResetInitialization;
             int8_t LightsState;
+            int8_t StabilizationState;
+            float RollInc;
+            float PitchInc;
+            int8_t ResetPosition;
+            float RollKp;
+            float RollKi;
+            float RollKd;
+            float PitchKp;
+            float PitchKi;
+            float PitchKd;
+            float YawKp;
+            float YawKi;
+            float YawKd;
+            float DepthKp;
+            float DepthKi;
+            float DepthKd;
+            int8_t UpdatePID;
 
             in >> HorizontalVectorX;
             in >> HorizontalVectorY;
             in >> VericalThrust;
-            in >> Depth;
+            in >> PowerTarget;
             in >> AngularVelocityZ;
             in >> ManipulatorState;
             in >> ManipulatorRotate;
             in >> CameraRotate;
             in >> ResetInitialization;
             in >> LightsState;
+            in >> StabilizationState;
+            in >> RollInc;
+            in >> PitchInc;
+            in >> ResetPosition;
+            in >> RollKp;
+            in >> RollKi;
+            in >> RollKd;
+            in >> PitchKp;
+            in >> PitchKi;
+            in >> PitchKd;
+            in >> YawKp;
+            in >> YawKi;
+            in >> YawKd;
+            in >> DepthKp;
+            in >> DepthKi;
+            in >> DepthKd;
+            in >> UpdatePID;
 
             control.setHorizontalVectorX(HorizontalVectorX);
             control.setHorizontalVectorY(HorizontalVectorY);
             control.setVericalThrust(VericalThrust);
-            control.setDepth(Depth);
+            control.setPowerTarget(PowerTarget);
             control.setAngularVelocityZ(AngularVelocityZ);
             control.setManipulatorState(ManipulatorState);
             control.setManipulatorRotate(ManipulatorRotate);
             control.setCameraRotate(CameraRotate);
             control.setResetInitialization(ResetInitialization);
             control.setLightsState(LightsState);
+            control.setStabilizationState(StabilizationState);
+            control.setRollInc(RollInc);
+            control.setPitchInc(PitchInc);
+            control.setResetPosition(ResetPosition);
+            control.setRollKp(RollKp);
+            control.setRollKi(RollKi);
+            control.setRollKd(RollKd);
+            control.setPitchKp(PitchKp);
+            control.setPitchKi(PitchKi);
+            control.setPitchKd(PitchKd);
+            control.setYawKp(YawKp);
+            control.setYawKi(YawKi);
+            control.setYawKd(YawKd);
+            control.setDepthKp(DepthKp);
+            control.setDepthKi(DepthKi);
+            control.setDepthKd(DepthKd);
+            control.setUpdatePID(UpdatePID);
 
             emit OnProcessControlDatagram();
 

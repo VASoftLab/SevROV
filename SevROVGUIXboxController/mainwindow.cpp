@@ -9,7 +9,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
 
     // Фиксируем размер окна и убираем иконку ресайза
-    setFixedSize(QSize(706, 660));
+    setFixedSize(QSize(992, 720));
     statusBar()->setSizeGripEnabled(false);
     // Центрируем окно в пределах экрана
     move(screen()->geometry().center() - frameGeometry().center());
@@ -232,23 +232,91 @@ void MainWindow::OnAxisRTrigger(short value)
 }
 void MainWindow::OnControlTimer()
 {
-    SevROVLibrary::XboxToControlData(xbox, &rovConnector.control);
+    float powerLimit = ui->sbPowerLimit->value();
+    bool rollStabilization = ui->cbRollStab->isChecked();
+    bool pitchStabilization = ui->cbPitchStab->isChecked();
+    bool yawStabilization = ui->cbYawStab->isChecked();
+    bool depthStabilization = ui->cbDepthStab->isChecked();
+
+    SevROVPIDController rollPID;
+    rollPID.setKp(ui->sbRollKp->value());
+    rollPID.setKi(ui->sbRollKi->value());
+    rollPID.setKd(ui->sbRollKd->value());
+
+    SevROVPIDController pitchPID;
+    pitchPID.setKp(ui->sbPitchKp->value());
+    pitchPID.setKi(ui->sbPitchKi->value());
+    pitchPID.setKd(ui->sbPitchKd->value());
+
+    SevROVPIDController yawPID;
+    yawPID.setKp(ui->sbYawKp->value());
+    yawPID.setKi(ui->sbYawKi->value());
+    yawPID.setKd(ui->sbYawKd->value());
+
+    SevROVPIDController depthPID;
+    depthPID.setKp(ui->sbDepthKp->value());
+    depthPID.setKi(ui->sbDepthKi->value());
+    depthPID.setKd(ui->sbDepthKd->value());
+
+    SevROVLibrary::XboxToControlData(xbox,
+                                     powerLimit,
+                                     rollStabilization,
+                                     pitchStabilization,
+                                     yawStabilization,
+                                     depthStabilization,
+                                     rollPID,
+                                     pitchPID,
+                                     yawPID,
+                                     depthPID,
+                                     updatePID,
+                                     &rovConnector.control);
 
     ui->edHorizontalVectorX->setText(QString::number(rovConnector.control.getHorizontalVectorX()));
     ui->edHorizontalVectorY->setText(QString::number(rovConnector.control.getHorizontalVectorY()));
-    ui->edAngularVelocityZ->setText(QString::number(rovConnector.control.getAngularVelocityZ()));
     ui->edVericalThrust->setText(QString::number(rovConnector.control.getVericalThrust()));
-    ui->edDepth->setText(QString::number(rovConnector.control.getDepth()));
+    ui->edPowerTarget->setText(QString::number(rovConnector.control.getPowerTarget()));
+    ui->edAngularVelocityZ->setText(QString::number(rovConnector.control.getAngularVelocityZ()));
+
     ui->edManipulatorState->setText(QString::number(rovConnector.control.getManipulatorState()));
     ui->edManipulatorRotate->setText(QString::number(rovConnector.control.getManipulatorRotate()));
     ui->edCameraRotate->setText(QString::number(rovConnector.control.getCameraRotate()));
+
     ui->edResetInitialization->setText(QString::number(rovConnector.control.getResetInitialization()));
     ui->edLightsState->setText(QString::number(rovConnector.control.getLightsState()));
+    ui->edStabilizationState->setText(QString::number(rovConnector.control.getStabilizationState()));
+
+    ui->edRollInc->setText(QString::number(rovConnector.control.getRollInc()));
+    ui->edPitchInc->setText(QString::number(rovConnector.control.getPitchInc()));
+
+    ui->edResetPosition->setText(QString::number(rovConnector.control.getResetPosition()));
+
+    ui->edRollKp->setText(QString::number(rovConnector.control.getRollKp()));
+    ui->edRollKi->setText(QString::number(rovConnector.control.getRollKi()));
+    ui->edRollKd->setText(QString::number(rovConnector.control.getRollKd()));
+
+    ui->edPitchKp->setText(QString::number(rovConnector.control.getPitchKp()));
+    ui->edPitchKi->setText(QString::number(rovConnector.control.getPitchKi()));
+    ui->edPitchKd->setText(QString::number(rovConnector.control.getPitchKd()));
+
+    ui->edYawKp->setText(QString::number(rovConnector.control.getYawKp()));
+    ui->edYawKi->setText(QString::number(rovConnector.control.getYawKi()));
+    ui->edYawKd->setText(QString::number(rovConnector.control.getYawKd()));
+
+    ui->edDepthKp->setText(QString::number(rovConnector.control.getDepthKp()));
+    ui->edDepthKi->setText(QString::number(rovConnector.control.getDepthKi()));
+    ui->edDepthKd->setText(QString::number(rovConnector.control.getDepthKd()));
+
+    ui->edUpdatePID->setText(QString::number(rovConnector.control.getUpdatePID()));
+
 
     // При соединении с джойстиком уже задали IP и Port,
     // которые будут использоваться для записи датаграммы
     if (rovConnector.getIsConnected())
         rovConnector.writeControlDatagram();
+
+    // Сброс флага обновления параметров ПИД-контроллера
+    if (updatePID)
+        updatePID = false;
 }
 
 void MainWindow::on_btnAUV_clicked()
@@ -312,8 +380,16 @@ void MainWindow::OnSocketProcessTelemetryDatagram()
         ui->edYaw->setText(QString::number(rovConnector.telemetry.getYaw(), 'f', 2));
         ui->edHeading->setText(QString::number(rovConnector.telemetry.getHeading(), 'f', 2));
         ui->edDepthAUV->setText(QString::number(rovConnector.telemetry.getDepth(), 'f', 2));
+        ui->edRollSetPoint->setText(QString::number(rovConnector.telemetry.getRollSetPoint(), 'f', 2));
+        ui->edPitchSetPoint->setText(QString::number(rovConnector.telemetry.getPitchSetPoint(), 'f', 2));
 
         rovConnector.telemetry.printDebugInfo();
     }
+}
+
+
+void MainWindow::on_pbPIDUpdate_clicked()
+{
+    updatePID = true;
 }
 

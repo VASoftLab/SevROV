@@ -3,6 +3,7 @@
 
 #include <cstdlib>
 #include "sevrovcontroldata.h"
+#include "sevrovpidcontroller.h"
 
 // https://support.xbox.com/en-US/help/hardware-network/controller/xbox-one-wireless-controller
 struct XboxGamepad {
@@ -58,12 +59,23 @@ enum xbox_butn {
     Menu        // 7
 };
 
-const int JOYSTICK_DEAD_ZONE = 2500;
+const int JOYSTICK_DEAD_ZONE = 6000;
 
 class SevROVLibrary
 {
 public:
-    static void XboxToControlData(const XboxGamepad xbox, SevROVControlData *data);
+    static void XboxToControlData(const XboxGamepad xbox,
+                                  const float powerlimit,
+                                  const bool rollstabilization,
+                                  const bool pitchstabilization,
+                                  const bool yawstabilization,
+                                  const bool depthstabilization,
+                                  SevROVPIDController rollpid,
+                                  SevROVPIDController pitchpid,
+                                  SevROVPIDController yawpid,
+                                  SevROVPIDController depthpid,
+                                  bool updatepid,
+                                  SevROVControlData *data);
 };
 
 #endif // SEVROVLIBRARY_H

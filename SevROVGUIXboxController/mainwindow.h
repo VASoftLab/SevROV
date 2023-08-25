@@ -8,6 +8,7 @@
 #include "sevrovxboxcontroller.h"
 #include "sevrovlibrary.h"
 #include "sevrovconnector.h"
+#include "sevrovpidcontroller.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -26,6 +27,8 @@ private slots:
 
     void on_btnAUV_clicked();
 
+    void on_pbPIDUpdate_clicked();
+
 public slots:
     void OnSocketProcessTelemetryDatagram();
     void OnSocketConnect();
@@ -40,6 +43,7 @@ private:
     QTimer *controlTimer;
 
     XboxGamepad xbox;
+    bool updatePID = false;
 
     bool jsConnected = false;
 

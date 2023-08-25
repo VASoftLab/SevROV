@@ -6,6 +6,9 @@
 #include "sevrovcontroldata.h"
 #include "sevrovtelemetrydata.h"
 
+const int CONTROL_PACKET_SIZE = 93;
+const int TELEMETRY_PACKET_SIZE = 28;
+
 class SevROVConnector : public QObject
 {
     Q_OBJECT
