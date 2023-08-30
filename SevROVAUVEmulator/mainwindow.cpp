@@ -17,7 +17,7 @@ MainWindow::MainWindow(QWidget *parent)
     statusBar()->setSizeGripEnabled(false);
     // Центрируем окно в пределах экрана
     move(screen()->geometry().center() - frameGeometry().center());
-    setWindowTitle("ТНПА симулятор");
+    setWindowTitle("ТНПА :: Симулятор");
 
     // Сервер должен уметь читать сигналы управления и писать телеметрию в ответ
     rovConnector.setMode(SevROVConnector::Mode::CONTROL_READ |

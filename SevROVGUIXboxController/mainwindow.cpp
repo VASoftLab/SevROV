@@ -17,7 +17,7 @@ MainWindow::MainWindow(QWidget *parent)
     statusBar()->setSizeGripEnabled(false);
     // Центрируем окно в пределах экрана
     move(screen()->geometry().center() - frameGeometry().center());
-    setWindowTitle("Модуль управления");
+    setWindowTitle("ТНПА :: Модуль управления");
 
     // Создаем объект джойстик-контроллера и получаем список доступных джойстиков
     jsController = new SevROVXboxController();
