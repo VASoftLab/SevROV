@@ -4,11 +4,11 @@
 #include <QMainWindow>
 #include <QTimer>
 #include <QDateTime>
+#include <QSettings>
 
 #include "sevrovxboxcontroller.h"
 #include "sevrovlibrary.h"
 #include "sevrovconnector.h"
-#include "sevrovpidcontroller.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -21,6 +21,9 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+
+    void loadSettings();
+    void saveSettings();
 
 private slots:
     void on_btnJoystick_clicked();
@@ -36,6 +39,7 @@ public slots:
 
 private:
     Ui::MainWindow *ui;
+    QString settingsFileName;
 
     SevROVXboxController *jsController;
     SevROVConnector rovConnector;

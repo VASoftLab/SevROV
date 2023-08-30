@@ -1,12 +1,16 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <QScreen>
+#include <QDir>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    // Путь к файлу настроек
+    settingsFileName = QApplication::applicationDirPath() +
+                       QDir::separator() + "settings.ini";
 
     // Фиксируем размер окна и убираем иконку ресайза
     setFixedSize(QSize(992, 720));
@@ -108,12 +112,16 @@ MainWindow::MainWindow(QWidget *parent)
     connect(&rovConnector, SIGNAL(OnProcessTelemetryDatagram()), this, SLOT(OnSocketProcessTelemetryDatagram()));    
 
     ui->edAUVConnection->setEnabled(false);
+
+    loadSettings();
 }
 
 MainWindow::~MainWindow()
-{
+{    
     if (controlTimer->isActive())
         controlTimer->stop();
+
+    saveSettings();
 
     delete controlTimer;
     delete jsController;
@@ -391,5 +399,76 @@ void MainWindow::OnSocketProcessTelemetryDatagram()
 void MainWindow::on_pbPIDUpdate_clicked()
 {
     updatePID = true;
+}
+
+void MainWindow::loadSettings()
+{
+    QSettings settings(settingsFileName, QSettings::IniFormat);
+
+    settings.beginGroup("/CONNECTION");
+    ui->edIP->setText(settings.value("/IP", "127.0.0.1").toString());
+    ui->edPort->setText(settings.value("/Port", "1234").toString());
+    settings.endGroup();
+
+    settings.beginGroup("/CONTROLLER");
+
+    // Power Limit
+    ui->sbPowerLimit->setValue(settings.value("/PowerLimit", 0.1).toDouble());
+    ui->sbRollKp->setValue(settings.value("/RollKp", 0.1).toDouble());
+    ui->sbRollKi->setValue(settings.value("/RollKi", 0.1).toDouble());
+    ui->sbRollKd->setValue(settings.value("/RollKd", 0.1).toDouble());
+    ui->cbRollStab->setChecked(settings.value("/RollStab", false).toBool());
+    // Pitch PID
+    ui->sbPitchKp->setValue(settings.value("/PitchKp", 0.1).toDouble());
+    ui->sbPitchKi->setValue(settings.value("/PitchKi", 0.1).toDouble());
+    ui->sbPitchKd->setValue(settings.value("/PitchKd", 0.1).toDouble());
+    ui->cbPitchStab->setChecked(settings.value("/PitchStab", false).toBool());
+    // Yaw PID
+    ui->sbYawKp->setValue(settings.value("/YawKp", 0.1).toDouble());
+    ui->sbYawKi->setValue(settings.value("/YawKi", 0.1).toDouble());
+    ui->sbYawKd->setValue(settings.value("/YawKd", 0.1).toDouble());
+    ui->cbYawStab->setChecked(settings.value("/YawStab", false).toBool());
+    // Depth PID
+    ui->sbDepthKp->setValue(settings.value("/DepthKp", 0.1).toDouble());
+    ui->sbDepthKi->setValue(settings.value("/DepthKi", 0.1).toDouble());
+    ui->sbDepthKd->setValue(settings.value("/DepthKd", 0.1).toDouble());
+    ui->cbDepthStab->setChecked(settings.value("/DepthStab", false).toBool());
+
+    settings.endGroup();
+}
+void MainWindow::saveSettings()
+{
+    QSettings settings(settingsFileName, QSettings::IniFormat);
+
+    settings.beginGroup("/CONNECTION");
+    settings.setValue("/IP", ui->edIP->text());
+    settings.setValue("/Port", ui->edPort->text());
+    settings.endGroup();
+
+    settings.beginGroup("/CONTROLLER");
+
+    // Power Limit
+    settings.setValue("/PowerLimit", ui->sbPowerLimit->value());
+    settings.setValue("/RollKp", ui->sbRollKp->value());
+    settings.setValue("/RollKi", ui->sbRollKi->value());
+    settings.setValue("/RollKd", ui->sbRollKd->value());
+    settings.setValue("/RollStab", ui->cbRollStab->isChecked());
+    // Pitch PID
+    settings.setValue("/PitchKp", ui->sbPitchKp->value());
+    settings.setValue("/PitchKi", ui->sbPitchKi->value());
+    settings.setValue("/PitchKd", ui->sbPitchKd->value());
+    settings.setValue("/PitchStab", ui->cbPitchStab->isChecked());
+    // Yaw PID
+    settings.setValue("/YawKp", ui->sbYawKp->value());
+    settings.setValue("/YawKi", ui->sbYawKi->value());
+    settings.setValue("/YawKd", ui->sbYawKd->value());
+    settings.setValue("/YawStab", ui->cbYawStab->isChecked());
+    // Depth PID
+    settings.setValue("/DepthKp", ui->sbDepthKp->value());
+    settings.setValue("/DepthKi", ui->sbDepthKi->value());
+    settings.setValue("/DepthKd", ui->sbDepthKd->value());
+    settings.setValue("/DepthStab", ui->cbDepthStab->isChecked());
+
+    settings.endGroup();
 }
 

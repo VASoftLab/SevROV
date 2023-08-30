@@ -1,12 +1,16 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <QScreen>
+#include <QDir>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    // Путь к файлу настроек
+    settingsFileName = QApplication::applicationDirPath() +
+                       QDir::separator() + "settings.ini";
 
     // Фиксируем размер окна и убираем иконку ресайза
     setFixedSize(QSize(522, 670));
@@ -22,10 +26,13 @@ MainWindow::MainWindow(QWidget *parent)
     connect(&rovConnector, SIGNAL(OnConnected()), this, SLOT(OnSocketConnect()));
     connect(&rovConnector, SIGNAL(OnDisconnected()), this, SLOT(OnSocketDisconnect()));
     connect(&rovConnector, SIGNAL(OnProcessControlDatagram()), this, SLOT(OnSocketProcessControlDatagram()));
+
+    loadSettings();
 }
 
 MainWindow::~MainWindow()
 {
+    saveSettings();
     delete ui;
 }
 
@@ -123,3 +130,21 @@ void MainWindow::OnSocketProcessControlDatagram()
     }
 }
 
+void MainWindow::loadSettings()
+{
+    QSettings settings(settingsFileName, QSettings::IniFormat);
+
+    settings.beginGroup("/CONNECTION");
+    ui->edIP->setText(settings.value("/IP", "127.0.0.1").toString());
+    ui->edPort->setText(settings.value("/Port", "1234").toString());
+    settings.endGroup();
+}
+void MainWindow::saveSettings()
+{
+    QSettings settings(settingsFileName, QSettings::IniFormat);
+
+    settings.beginGroup("/CONNECTION");
+    settings.setValue("/IP", ui->edIP->text());
+    settings.setValue("/Port", ui->edPort->text());
+    settings.endGroup();
+}

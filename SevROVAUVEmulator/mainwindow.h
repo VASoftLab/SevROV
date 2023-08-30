@@ -2,8 +2,10 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include "sevrovconnector.h"
 #include <QRandomGenerator>
+#include <QSettings>
+
+#include "sevrovconnector.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -17,6 +19,9 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+    void loadSettings();
+    void saveSettings();
+
 private slots:
     void on_pushButtonConnect_clicked();
 
@@ -28,5 +33,6 @@ public slots:
 private:
     Ui::MainWindow *ui;
     SevROVConnector rovConnector;
+    QString settingsFileName;
 };
 #endif // MAINWINDOW_H
