@@ -1864,6 +1864,25 @@
       <string>Pitch SetPoint</string>
      </property>
     </widget>
+    <widget class="QLabel" name="lbSevrovLogo">
+     <property name="geometry">
+      <rect>
+       <x>50</x>
+       <y>260</y>
+       <width>190</width>
+       <height>118</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="pixmap">
+      <pixmap resource="resource.qrc">:/logo/img/sevrov.png</pixmap>
+     </property>
+     <property name="scaledContents">
+      <bool>true</bool>
+     </property>
+    </widget>
    </widget>
    <widget class="QComboBox" name="cbJoystickList">
     <property name="geometry">
@@ -2384,6 +2403,25 @@
      </property>
     </widget>
    </widget>
+   <widget class="QLabel" name="lbSevSULogo">
+    <property name="geometry">
+     <rect>
+      <x>780</x>
+      <y>0</y>
+      <width>200</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap resource="resource.qrc">:/logo/img/sevsu.png</pixmap>
+    </property>
+    <property name="scaledContents">
+     <bool>true</bool>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
@@ -2472,6 +2510,8 @@
   <tabstop>edRollSetPoint</tabstop>
   <tabstop>edPitchSetPoint</tabstop>
  </tabstops>
- <resources/>
+ <resources>
+  <include location="resource.qrc"/>
+ </resources>
  <connections/>
 </ui>

@@ -46,3 +46,6 @@ unix
     LIBS += -L/usr/local/lib -lSDL2
     INCLUDEPATH += /usr/include/SDL2
 }
+
+RESOURCES += \
+    resource.qrc
