@@ -4,6 +4,6 @@ CONFIG += ordered
 
 SUBDIRS += \
     SevROVLibrary \
-    SevROVAUVEmulator \
-    SevROVGUIXboxController
+    SevROVEmulator \
+    SevROVControl
 
