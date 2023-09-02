@@ -138,8 +138,8 @@ void SevROVControlData::setLightsState(int8_t value)
     //qDebug() << LightsStateCurrent;
     //qDebug() << LightsStatePrevious.msecsTo(LightsStateCurrent);
 
-    // Смена режима не раньше чем раз в 5 секунд
-    if (LightsStatePrevious.msecsTo(LightsStateCurrent) >= 5000)
+    // Смена режима не раньше чем раз в X секунд
+    if (LightsStatePrevious.msecsTo(LightsStateCurrent) >= LIGHT_ONOFF_PAUSE)
     {
         LightsState = value;
         LightsStatePrevious = QDateTime::currentDateTime();

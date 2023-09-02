@@ -3,21 +3,26 @@
 #include <QScreen>
 #include <QDir>
 
+#include "sevrovlibrary.h"
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+    setWindowIcon(QIcon(":/logo/img/sevrov.png"));
+
     // Путь к файлу настроек
     settingsFileName = QApplication::applicationDirPath() +
                        QDir::separator() + "settings.ini";
 
     // Фиксируем размер окна и убираем иконку ресайза
-    setFixedSize(QSize(522, 670));
-    statusBar()->setSizeGripEnabled(false);
+    setFixedSize(QSize(522, 650));
+    // statusBar()->setSizeGripEnabled(false);
     // Центрируем окно в пределах экрана
     move(screen()->geometry().center() - frameGeometry().center());
-    setWindowTitle("ТНПА :: Симулятор");
+    setWindowTitle("ТНПА :: Симулятор :: " + QString(APP_VERSION.c_str()));
 
     // Сервер должен уметь читать сигналы управления и писать телеметрию в ответ
     rovConnector.setMode(SevROVConnector::Mode::CONTROL_READ |
@@ -56,12 +61,12 @@ void MainWindow::on_pushButtonConnect_clicked()
 void MainWindow::OnSocketConnect()
 {
     qDebug() << "OnSocketConnect()";
-    ui->pushButtonConnect->setText("Разъединить");
+    ui->pushButtonConnect->setText("РАЗЪЕДИНИТЬ");
 }
 void MainWindow::OnSocketDisconnect()
 {
     qDebug() << "OnSocketDisconnect()";
-    ui->pushButtonConnect->setText("Соединить");
+    ui->pushButtonConnect->setText("СОЕДИНИТЬ");
 }
 void MainWindow::OnSocketProcessControlDatagram()
 {
@@ -73,14 +78,14 @@ void MainWindow::OnSocketProcessControlDatagram()
     {
         rovConnector.control.printDebugInfo();
 
-        ui->edHorizontalVectorX->setText(QString::number(rovConnector.control.getHorizontalVectorX()));
-        ui->edHorizontalVectorY->setText(QString::number(rovConnector.control.getHorizontalVectorY()));
-        ui->edVericalThrust->setText(QString::number(rovConnector.control.getVericalThrust()));
-        ui->edPowerTarget->setText(QString::number(rovConnector.control.getPowerTarget()));
-        ui->edAngularVelocityZ->setText(QString::number(rovConnector.control.getAngularVelocityZ()));
+        ui->edHorizontalVectorX->setText(QString::number(rovConnector.control.getHorizontalVectorX(), 'f', 2));
+        ui->edHorizontalVectorY->setText(QString::number(rovConnector.control.getHorizontalVectorY(), 'f', 2));
+        ui->edVericalThrust->setText(QString::number(rovConnector.control.getVericalThrust(), 'f', 2));
+        ui->edPowerTarget->setText(QString::number(rovConnector.control.getPowerTarget(), 'f', 2));
+        ui->edAngularVelocityZ->setText(QString::number(rovConnector.control.getAngularVelocityZ(), 'f', 2));
 
         ui->edManipulatorState->setText(QString::number(rovConnector.control.getManipulatorState()));
-        ui->edManipulatorRotate->setText(QString::number(rovConnector.control.getManipulatorRotate()));
+        ui->edManipulatorRotate->setText(QString::number(rovConnector.control.getManipulatorRotate(), 'f', 2));
         ui->edCameraRotate->setText(QString::number(rovConnector.control.getCameraRotate()));
 
         ui->edResetInitialization->setText(QString::number(rovConnector.control.getResetInitialization()));

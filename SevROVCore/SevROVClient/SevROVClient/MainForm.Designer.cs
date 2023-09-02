@@ -79,6 +79,34 @@
             this.yawKi = new System.Windows.Forms.NumericUpDown();
             this.yawKp = new System.Windows.Forms.NumericUpDown();
             this.button2 = new System.Windows.Forms.Button();
+            this.timerGamepad = new System.Windows.Forms.Timer(this.components);
+            this.buttonGamepad = new System.Windows.Forms.Button();
+            this.lbHorizontalVector = new System.Windows.Forms.Label();
+            this.tbHorizontalVector = new System.Windows.Forms.TextBox();
+            this.tbPowerTarget = new System.Windows.Forms.TextBox();
+            this.lbPowerTarget = new System.Windows.Forms.Label();
+            this.tbAngularVelocityZ = new System.Windows.Forms.TextBox();
+            this.lbAngularVelocityZ = new System.Windows.Forms.Label();
+            this.tbVericalThrust = new System.Windows.Forms.TextBox();
+            this.lbVericalThrust = new System.Windows.Forms.Label();
+            this.tbManipulatorState = new System.Windows.Forms.TextBox();
+            this.lbManipulatorState = new System.Windows.Forms.Label();
+            this.tbManipulatorRotate = new System.Windows.Forms.TextBox();
+            this.lbManipulatorRotate = new System.Windows.Forms.Label();
+            this.tbCameraRotate = new System.Windows.Forms.TextBox();
+            this.lbCameraRotate = new System.Windows.Forms.Label();
+            this.tbRollInc = new System.Windows.Forms.TextBox();
+            this.lbRollInc = new System.Windows.Forms.Label();
+            this.tbPitchInc = new System.Windows.Forms.TextBox();
+            this.lbPitchInc = new System.Windows.Forms.Label();
+            this.tbResetInitialization = new System.Windows.Forms.TextBox();
+            this.lbResetInitialization = new System.Windows.Forms.Label();
+            this.tbLightsState = new System.Windows.Forms.TextBox();
+            this.lbLightsState = new System.Windows.Forms.Label();
+            this.tbStabilizationState = new System.Windows.Forms.TextBox();
+            this.lbStabilizationState = new System.Windows.Forms.Label();
+            this.tbResetPosition = new System.Windows.Forms.TextBox();
+            this.lbResetPosition = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.portInput)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -100,10 +128,9 @@
             // 
             // connectButton
             // 
-            this.connectButton.Location = new System.Drawing.Point(17, 91);
-            this.connectButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.connectButton.Location = new System.Drawing.Point(11, 59);
             this.connectButton.Name = "connectButton";
-            this.connectButton.Size = new System.Drawing.Size(324, 35);
+            this.connectButton.Size = new System.Drawing.Size(216, 23);
             this.connectButton.TabIndex = 9;
             this.connectButton.Text = "Connect";
             this.connectButton.UseVisualStyleBackColor = true;
@@ -111,18 +138,16 @@
             // 
             // hostInput
             // 
-            this.hostInput.Location = new System.Drawing.Point(64, 40);
-            this.hostInput.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.hostInput.Location = new System.Drawing.Point(43, 26);
             this.hostInput.Name = "hostInput";
-            this.hostInput.Size = new System.Drawing.Size(148, 26);
+            this.hostInput.Size = new System.Drawing.Size(100, 20);
             this.hostInput.TabIndex = 0;
             this.hostInput.Text = "192.169.10.100";
             this.hostInput.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // portInput
             // 
-            this.portInput.Location = new System.Drawing.Point(271, 41);
-            this.portInput.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.portInput.Location = new System.Drawing.Point(181, 27);
             this.portInput.Maximum = new decimal(new int[] {
             65535,
             0,
@@ -134,7 +159,7 @@
             0,
             0});
             this.portInput.Name = "portInput";
-            this.portInput.Size = new System.Drawing.Size(69, 26);
+            this.portInput.Size = new System.Drawing.Size(46, 20);
             this.portInput.TabIndex = 1;
             this.portInput.Value = new decimal(new int[] {
             1337,
@@ -145,40 +170,36 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 45);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Location = new System.Drawing.Point(8, 29);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(47, 20);
+            this.label2.Size = new System.Drawing.Size(32, 13);
             this.label2.TabIndex = 2;
             this.label2.Text = "Host:";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(224, 45);
-            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label4.Location = new System.Drawing.Point(149, 29);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(42, 20);
+            this.label4.Size = new System.Drawing.Size(29, 13);
             this.label4.TabIndex = 3;
             this.label4.Text = "Port:";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(17, 139);
-            this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label6.Location = new System.Drawing.Point(11, 90);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(60, 20);
+            this.label6.Size = new System.Drawing.Size(40, 13);
             this.label6.TabIndex = 10;
             this.label6.Text = "Status:";
             // 
             // connectionStatus
             // 
             this.connectionStatus.AutoSize = true;
-            this.connectionStatus.Location = new System.Drawing.Point(87, 139);
-            this.connectionStatus.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.connectionStatus.Location = new System.Drawing.Point(58, 90);
             this.connectionStatus.Name = "connectionStatus";
-            this.connectionStatus.Size = new System.Drawing.Size(107, 20);
+            this.connectionStatus.Size = new System.Drawing.Size(73, 13);
             this.connectionStatus.TabIndex = 11;
             this.connectionStatus.Text = "Disconnected";
             // 
@@ -191,11 +212,9 @@
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.portInput);
             this.groupBox1.Controls.Add(this.connectButton);
-            this.groupBox1.Location = new System.Drawing.Point(18, 19);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.groupBox1.Size = new System.Drawing.Size(397, 195);
+            this.groupBox1.Size = new System.Drawing.Size(265, 127);
             this.groupBox1.TabIndex = 11;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Connection";
@@ -219,11 +238,9 @@
             this.groupBox2.Controls.Add(this.label9);
             this.groupBox2.Controls.Add(this.label8);
             this.groupBox2.Controls.Add(this.label7);
-            this.groupBox2.Location = new System.Drawing.Point(18, 240);
-            this.groupBox2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.groupBox2.Location = new System.Drawing.Point(12, 156);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.groupBox2.Size = new System.Drawing.Size(397, 182);
+            this.groupBox2.Size = new System.Drawing.Size(265, 118);
             this.groupBox2.TabIndex = 12;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Telemetry";
@@ -231,10 +248,10 @@
             // depth_stabilization_check
             // 
             this.depth_stabilization_check.AutoSize = true;
-            this.depth_stabilization_check.Location = new System.Drawing.Point(296, 115);
-            this.depth_stabilization_check.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.depth_stabilization_check.Location = new System.Drawing.Point(197, 75);
+            this.depth_stabilization_check.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.depth_stabilization_check.Name = "depth_stabilization_check";
-            this.depth_stabilization_check.Size = new System.Drawing.Size(113, 24);
+            this.depth_stabilization_check.Size = new System.Drawing.Size(77, 17);
             this.depth_stabilization_check.TabIndex = 23;
             this.depth_stabilization_check.Text = "DepthStab";
             this.depth_stabilization_check.UseVisualStyleBackColor = true;
@@ -242,10 +259,10 @@
             // yaw_stabilization_check
             // 
             this.yaw_stabilization_check.AutoSize = true;
-            this.yaw_stabilization_check.Location = new System.Drawing.Point(205, 115);
-            this.yaw_stabilization_check.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.yaw_stabilization_check.Location = new System.Drawing.Point(137, 75);
+            this.yaw_stabilization_check.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.yaw_stabilization_check.Name = "yaw_stabilization_check";
-            this.yaw_stabilization_check.Size = new System.Drawing.Size(100, 24);
+            this.yaw_stabilization_check.Size = new System.Drawing.Size(69, 17);
             this.yaw_stabilization_check.TabIndex = 22;
             this.yaw_stabilization_check.Text = "YawStab";
             this.yaw_stabilization_check.UseVisualStyleBackColor = true;
@@ -253,10 +270,10 @@
             // pitch_stabilization_check
             // 
             this.pitch_stabilization_check.AutoSize = true;
-            this.pitch_stabilization_check.Location = new System.Drawing.Point(109, 115);
-            this.pitch_stabilization_check.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.pitch_stabilization_check.Location = new System.Drawing.Point(73, 75);
+            this.pitch_stabilization_check.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.pitch_stabilization_check.Name = "pitch_stabilization_check";
-            this.pitch_stabilization_check.Size = new System.Drawing.Size(104, 24);
+            this.pitch_stabilization_check.Size = new System.Drawing.Size(72, 17);
             this.pitch_stabilization_check.TabIndex = 21;
             this.pitch_stabilization_check.Text = "PitchStab";
             this.pitch_stabilization_check.UseVisualStyleBackColor = true;
@@ -264,30 +281,27 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(224, 11);
-            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label3.Location = new System.Drawing.Point(149, 7);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(85, 20);
+            this.label3.Size = new System.Drawing.Size(57, 13);
             this.label3.TabIndex = 20;
             this.label3.Text = "Set points:";
             // 
             // rollSetPoint
             // 
             this.rollSetPoint.AutoSize = true;
-            this.rollSetPoint.Location = new System.Drawing.Point(267, 31);
-            this.rollSetPoint.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.rollSetPoint.Location = new System.Drawing.Point(178, 20);
             this.rollSetPoint.Name = "rollSetPoint";
-            this.rollSetPoint.Size = new System.Drawing.Size(14, 20);
+            this.rollSetPoint.Size = new System.Drawing.Size(10, 13);
             this.rollSetPoint.TabIndex = 19;
             this.rollSetPoint.Text = "-";
             // 
             // pitchSetPoint
             // 
             this.pitchSetPoint.AutoSize = true;
-            this.pitchSetPoint.Location = new System.Drawing.Point(267, 51);
-            this.pitchSetPoint.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.pitchSetPoint.Location = new System.Drawing.Point(178, 33);
             this.pitchSetPoint.Name = "pitchSetPoint";
-            this.pitchSetPoint.Size = new System.Drawing.Size(14, 20);
+            this.pitchSetPoint.Size = new System.Drawing.Size(10, 13);
             this.pitchSetPoint.TabIndex = 17;
             this.pitchSetPoint.Text = "-";
             // 
@@ -299,15 +313,14 @@
             0,
             0,
             65536});
-            this.powerLimitValue1.Location = new System.Drawing.Point(118, 142);
-            this.powerLimitValue1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.powerLimitValue1.Location = new System.Drawing.Point(79, 92);
             this.powerLimitValue1.Maximum = new decimal(new int[] {
             1,
             0,
             0,
             0});
             this.powerLimitValue1.Name = "powerLimitValue1";
-            this.powerLimitValue1.Size = new System.Drawing.Size(53, 26);
+            this.powerLimitValue1.Size = new System.Drawing.Size(35, 20);
             this.powerLimitValue1.TabIndex = 16;
             this.powerLimitValue1.Value = new decimal(new int[] {
             1,
@@ -318,20 +331,19 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(17, 142);
-            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label5.Location = new System.Drawing.Point(11, 92);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(90, 20);
+            this.label5.Size = new System.Drawing.Size(61, 13);
             this.label5.TabIndex = 15;
             this.label5.Text = "Power Limit";
             // 
             // roll_stabilization_check
             // 
             this.roll_stabilization_check.AutoSize = true;
-            this.roll_stabilization_check.Location = new System.Drawing.Point(21, 115);
-            this.roll_stabilization_check.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.roll_stabilization_check.Location = new System.Drawing.Point(14, 75);
+            this.roll_stabilization_check.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.roll_stabilization_check.Name = "roll_stabilization_check";
-            this.roll_stabilization_check.Size = new System.Drawing.Size(96, 24);
+            this.roll_stabilization_check.Size = new System.Drawing.Size(66, 17);
             this.roll_stabilization_check.TabIndex = 14;
             this.roll_stabilization_check.Text = "RollStab";
             this.roll_stabilization_check.UseVisualStyleBackColor = true;
@@ -340,20 +352,18 @@
             // depthBox
             // 
             this.depthBox.AutoSize = true;
-            this.depthBox.Location = new System.Drawing.Point(87, 91);
-            this.depthBox.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.depthBox.Location = new System.Drawing.Point(58, 59);
             this.depthBox.Name = "depthBox";
-            this.depthBox.Size = new System.Drawing.Size(14, 20);
+            this.depthBox.Size = new System.Drawing.Size(10, 13);
             this.depthBox.TabIndex = 13;
             this.depthBox.Text = "-";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(17, 91);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Location = new System.Drawing.Point(11, 59);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(53, 20);
+            this.label1.Size = new System.Drawing.Size(36, 13);
             this.label1.TabIndex = 9;
             this.label1.Text = "Depth";
             this.label1.Click += new System.EventHandler(this.label1_Click);
@@ -361,50 +371,45 @@
             // yawBox
             // 
             this.yawBox.AutoSize = true;
-            this.yawBox.Location = new System.Drawing.Point(87, 71);
-            this.yawBox.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.yawBox.Location = new System.Drawing.Point(58, 46);
             this.yawBox.Name = "yawBox";
-            this.yawBox.Size = new System.Drawing.Size(14, 20);
+            this.yawBox.Size = new System.Drawing.Size(10, 13);
             this.yawBox.TabIndex = 8;
             this.yawBox.Text = "-";
             // 
             // pitchBox
             // 
             this.pitchBox.AutoSize = true;
-            this.pitchBox.Location = new System.Drawing.Point(87, 51);
-            this.pitchBox.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.pitchBox.Location = new System.Drawing.Point(58, 33);
             this.pitchBox.Name = "pitchBox";
-            this.pitchBox.Size = new System.Drawing.Size(14, 20);
+            this.pitchBox.Size = new System.Drawing.Size(10, 13);
             this.pitchBox.TabIndex = 6;
             this.pitchBox.Text = "-";
             // 
             // rollBox
             // 
             this.rollBox.AutoSize = true;
-            this.rollBox.Location = new System.Drawing.Point(87, 31);
-            this.rollBox.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.rollBox.Location = new System.Drawing.Point(58, 20);
             this.rollBox.Name = "rollBox";
-            this.rollBox.Size = new System.Drawing.Size(14, 20);
+            this.rollBox.Size = new System.Drawing.Size(10, 13);
             this.rollBox.TabIndex = 4;
             this.rollBox.Text = "-";
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(17, 71);
-            this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label9.Location = new System.Drawing.Point(11, 46);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(40, 20);
+            this.label9.Size = new System.Drawing.Size(28, 13);
             this.label9.TabIndex = 2;
             this.label9.Text = "Yaw";
             // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(17, 51);
-            this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label8.Location = new System.Drawing.Point(11, 33);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(44, 20);
+            this.label8.Size = new System.Drawing.Size(31, 13);
             this.label8.TabIndex = 1;
             this.label8.Text = "Pitch";
             this.label8.Click += new System.EventHandler(this.label8_Click);
@@ -412,10 +417,9 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(17, 31);
-            this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label7.Location = new System.Drawing.Point(11, 20);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(36, 20);
+            this.label7.Size = new System.Drawing.Size(25, 13);
             this.label7.TabIndex = 0;
             this.label7.Text = "Roll";
             this.label7.Click += new System.EventHandler(this.label7_Click);
@@ -428,15 +432,14 @@
             0,
             0,
             65536});
-            this.rollKp.Location = new System.Drawing.Point(98, 466);
-            this.rollKp.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.rollKp.Location = new System.Drawing.Point(65, 303);
             this.rollKp.Minimum = new decimal(new int[] {
             100,
             0,
             0,
             -2147483648});
             this.rollKp.Name = "rollKp";
-            this.rollKp.Size = new System.Drawing.Size(91, 26);
+            this.rollKp.Size = new System.Drawing.Size(61, 20);
             this.rollKp.TabIndex = 21;
             this.rollKp.Value = new decimal(new int[] {
             10,
@@ -452,15 +455,14 @@
             0,
             0,
             65536});
-            this.pitchKp.Location = new System.Drawing.Point(98, 506);
-            this.pitchKp.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.pitchKp.Location = new System.Drawing.Point(65, 329);
             this.pitchKp.Minimum = new decimal(new int[] {
             100,
             0,
             0,
             -2147483648});
             this.pitchKp.Name = "pitchKp";
-            this.pitchKp.Size = new System.Drawing.Size(91, 26);
+            this.pitchKp.Size = new System.Drawing.Size(61, 20);
             this.pitchKp.TabIndex = 22;
             this.pitchKp.Value = new decimal(new int[] {
             10,
@@ -476,8 +478,7 @@
             0,
             0,
             65536});
-            this.depthKp.Location = new System.Drawing.Point(97, 588);
-            this.depthKp.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.depthKp.Location = new System.Drawing.Point(65, 382);
             this.depthKp.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -489,7 +490,7 @@
             0,
             -2147483648});
             this.depthKp.Name = "depthKp";
-            this.depthKp.Size = new System.Drawing.Size(92, 26);
+            this.depthKp.Size = new System.Drawing.Size(61, 20);
             this.depthKp.TabIndex = 23;
             this.depthKp.Value = new decimal(new int[] {
             10,
@@ -505,10 +506,9 @@
             0,
             0,
             65536});
-            this.rollKi.Location = new System.Drawing.Point(198, 466);
-            this.rollKi.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.rollKi.Location = new System.Drawing.Point(132, 303);
             this.rollKi.Name = "rollKi";
-            this.rollKi.Size = new System.Drawing.Size(80, 26);
+            this.rollKi.Size = new System.Drawing.Size(53, 20);
             this.rollKi.TabIndex = 24;
             // 
             // pitchKi
@@ -519,10 +519,9 @@
             0,
             0,
             65536});
-            this.pitchKi.Location = new System.Drawing.Point(198, 506);
-            this.pitchKi.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.pitchKi.Location = new System.Drawing.Point(132, 329);
             this.pitchKi.Name = "pitchKi";
-            this.pitchKi.Size = new System.Drawing.Size(80, 26);
+            this.pitchKi.Size = new System.Drawing.Size(53, 20);
             this.pitchKi.TabIndex = 25;
             // 
             // depthKi
@@ -533,10 +532,9 @@
             0,
             0,
             65536});
-            this.depthKi.Location = new System.Drawing.Point(198, 588);
-            this.depthKi.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.depthKi.Location = new System.Drawing.Point(132, 382);
             this.depthKi.Name = "depthKi";
-            this.depthKi.Size = new System.Drawing.Size(80, 26);
+            this.depthKi.Size = new System.Drawing.Size(53, 20);
             this.depthKi.TabIndex = 26;
             // 
             // depthKd
@@ -547,10 +545,9 @@
             0,
             0,
             131072});
-            this.depthKd.Location = new System.Drawing.Point(287, 588);
-            this.depthKd.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.depthKd.Location = new System.Drawing.Point(191, 382);
             this.depthKd.Name = "depthKd";
-            this.depthKd.Size = new System.Drawing.Size(80, 26);
+            this.depthKd.Size = new System.Drawing.Size(53, 20);
             this.depthKd.TabIndex = 29;
             // 
             // pitchKd
@@ -561,10 +558,9 @@
             0,
             0,
             131072});
-            this.pitchKd.Location = new System.Drawing.Point(287, 508);
-            this.pitchKd.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.pitchKd.Location = new System.Drawing.Point(191, 330);
             this.pitchKd.Name = "pitchKd";
-            this.pitchKd.Size = new System.Drawing.Size(80, 26);
+            this.pitchKd.Size = new System.Drawing.Size(53, 20);
             this.pitchKd.TabIndex = 28;
             // 
             // rollKd
@@ -575,78 +571,70 @@
             0,
             0,
             131072});
-            this.rollKd.Location = new System.Drawing.Point(287, 466);
-            this.rollKd.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.rollKd.Location = new System.Drawing.Point(191, 303);
             this.rollKd.Name = "rollKd";
-            this.rollKd.Size = new System.Drawing.Size(80, 26);
+            this.rollKd.Size = new System.Drawing.Size(53, 20);
             this.rollKd.TabIndex = 27;
             // 
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(132, 441);
-            this.label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label10.Location = new System.Drawing.Point(88, 287);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(28, 20);
+            this.label10.Size = new System.Drawing.Size(20, 13);
             this.label10.TabIndex = 21;
             this.label10.Text = "Kp";
             // 
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(222, 441);
-            this.label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label11.Location = new System.Drawing.Point(148, 287);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(22, 20);
+            this.label11.Size = new System.Drawing.Size(16, 13);
             this.label11.TabIndex = 30;
             this.label11.Text = "Ki";
             // 
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(310, 441);
-            this.label12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label12.Location = new System.Drawing.Point(207, 287);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(28, 20);
+            this.label12.Size = new System.Drawing.Size(20, 13);
             this.label12.TabIndex = 31;
             this.label12.Text = "Kd";
             // 
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(48, 590);
-            this.label13.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label13.Location = new System.Drawing.Point(32, 384);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(53, 20);
+            this.label13.Size = new System.Drawing.Size(36, 13);
             this.label13.TabIndex = 23;
             this.label13.Text = "Depth";
             // 
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(48, 511);
-            this.label14.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label14.Location = new System.Drawing.Point(32, 332);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(44, 20);
+            this.label14.Size = new System.Drawing.Size(31, 13);
             this.label14.TabIndex = 22;
             this.label14.Text = "Pitch";
             // 
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(48, 469);
-            this.label15.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label15.Location = new System.Drawing.Point(32, 305);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(36, 20);
+            this.label15.Size = new System.Drawing.Size(25, 13);
             this.label15.TabIndex = 21;
             this.label15.Text = "Roll";
             // 
             // SaveButton
             // 
-            this.SaveButton.Location = new System.Drawing.Point(44, 626);
-            this.SaveButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.SaveButton.Location = new System.Drawing.Point(29, 407);
             this.SaveButton.Name = "SaveButton";
-            this.SaveButton.Size = new System.Drawing.Size(324, 35);
+            this.SaveButton.Size = new System.Drawing.Size(216, 23);
             this.SaveButton.TabIndex = 12;
             this.SaveButton.Text = "Save";
             this.SaveButton.UseVisualStyleBackColor = true;
@@ -654,10 +642,9 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(44, 671);
-            this.button1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.button1.Location = new System.Drawing.Point(29, 436);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(324, 35);
+            this.button1.Size = new System.Drawing.Size(216, 23);
             this.button1.TabIndex = 32;
             this.button1.Text = "Update";
             this.button1.UseVisualStyleBackColor = true;
@@ -665,10 +652,9 @@
             // 
             // CameraBtn
             // 
-            this.CameraBtn.Location = new System.Drawing.Point(44, 715);
-            this.CameraBtn.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.CameraBtn.Location = new System.Drawing.Point(29, 465);
             this.CameraBtn.Name = "CameraBtn";
-            this.CameraBtn.Size = new System.Drawing.Size(324, 35);
+            this.CameraBtn.Size = new System.Drawing.Size(216, 23);
             this.CameraBtn.TabIndex = 33;
             this.CameraBtn.Text = "Камера";
             this.CameraBtn.UseVisualStyleBackColor = true;
@@ -676,10 +662,9 @@
             // 
             // imageBox1
             // 
-            this.imageBox1.Location = new System.Drawing.Point(454, 16);
-            this.imageBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.imageBox1.Location = new System.Drawing.Point(771, 10);
             this.imageBox1.Name = "imageBox1";
-            this.imageBox1.Size = new System.Drawing.Size(1108, 901);
+            this.imageBox1.Size = new System.Drawing.Size(271, 586);
             this.imageBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.imageBox1.TabIndex = 2;
             this.imageBox1.TabStop = false;
@@ -687,10 +672,9 @@
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(48, 548);
-            this.label16.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label16.Location = new System.Drawing.Point(32, 356);
             this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(40, 20);
+            this.label16.Size = new System.Drawing.Size(28, 13);
             this.label16.TabIndex = 34;
             this.label16.Text = "Yaw";
             this.label16.Click += new System.EventHandler(this.label16_Click);
@@ -703,10 +687,9 @@
             0,
             0,
             131072});
-            this.yawKd.Location = new System.Drawing.Point(287, 545);
-            this.yawKd.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.yawKd.Location = new System.Drawing.Point(191, 354);
             this.yawKd.Name = "yawKd";
-            this.yawKd.Size = new System.Drawing.Size(80, 26);
+            this.yawKd.Size = new System.Drawing.Size(53, 20);
             this.yawKd.TabIndex = 37;
             this.yawKd.ValueChanged += new System.EventHandler(this.numericUpDown1_ValueChanged);
             // 
@@ -718,10 +701,9 @@
             0,
             0,
             65536});
-            this.yawKi.Location = new System.Drawing.Point(198, 545);
-            this.yawKi.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.yawKi.Location = new System.Drawing.Point(132, 354);
             this.yawKi.Name = "yawKi";
-            this.yawKi.Size = new System.Drawing.Size(80, 26);
+            this.yawKi.Size = new System.Drawing.Size(53, 20);
             this.yawKi.TabIndex = 36;
             this.yawKi.ValueChanged += new System.EventHandler(this.numericUpDown2_ValueChanged);
             // 
@@ -733,8 +715,7 @@
             0,
             0,
             65536});
-            this.yawKp.Location = new System.Drawing.Point(97, 545);
-            this.yawKp.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.yawKp.Location = new System.Drawing.Point(65, 354);
             this.yawKp.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -746,7 +727,7 @@
             0,
             -2147483648});
             this.yawKp.Name = "yawKp";
-            this.yawKp.Size = new System.Drawing.Size(92, 26);
+            this.yawKp.Size = new System.Drawing.Size(61, 20);
             this.yawKp.TabIndex = 35;
             this.yawKp.Value = new decimal(new int[] {
             10,
@@ -757,20 +738,268 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(44, 760);
-            this.button2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.button2.Location = new System.Drawing.Point(29, 494);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(324, 35);
+            this.button2.Size = new System.Drawing.Size(216, 23);
             this.button2.TabIndex = 40;
             this.button2.Text = "Камера Стоп";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click_1);
             // 
+            // timerGamepad
+            // 
+            this.timerGamepad.Tick += new System.EventHandler(this.timerGamepad_Tick);
+            // 
+            // buttonGamepad
+            // 
+            this.buttonGamepad.Location = new System.Drawing.Point(29, 523);
+            this.buttonGamepad.Name = "buttonGamepad";
+            this.buttonGamepad.Size = new System.Drawing.Size(216, 23);
+            this.buttonGamepad.TabIndex = 41;
+            this.buttonGamepad.Text = "Gamepad Start";
+            this.buttonGamepad.UseVisualStyleBackColor = true;
+            this.buttonGamepad.Click += new System.EventHandler(this.buttonGamepad_Click);
+            // 
+            // lbHorizontalVector
+            // 
+            this.lbHorizontalVector.AutoSize = true;
+            this.lbHorizontalVector.Location = new System.Drawing.Point(289, 25);
+            this.lbHorizontalVector.Name = "lbHorizontalVector";
+            this.lbHorizontalVector.Size = new System.Drawing.Size(85, 13);
+            this.lbHorizontalVector.TabIndex = 42;
+            this.lbHorizontalVector.Text = "HorizontalVector";
+            // 
+            // tbHorizontalVector
+            // 
+            this.tbHorizontalVector.Location = new System.Drawing.Point(391, 22);
+            this.tbHorizontalVector.Name = "tbHorizontalVector";
+            this.tbHorizontalVector.Size = new System.Drawing.Size(374, 20);
+            this.tbHorizontalVector.TabIndex = 43;
+            // 
+            // tbPowerTarget
+            // 
+            this.tbPowerTarget.Location = new System.Drawing.Point(391, 48);
+            this.tbPowerTarget.Name = "tbPowerTarget";
+            this.tbPowerTarget.Size = new System.Drawing.Size(70, 20);
+            this.tbPowerTarget.TabIndex = 45;
+            // 
+            // lbPowerTarget
+            // 
+            this.lbPowerTarget.AutoSize = true;
+            this.lbPowerTarget.Location = new System.Drawing.Point(289, 51);
+            this.lbPowerTarget.Name = "lbPowerTarget";
+            this.lbPowerTarget.Size = new System.Drawing.Size(68, 13);
+            this.lbPowerTarget.TabIndex = 44;
+            this.lbPowerTarget.Text = "PowerTarget";
+            // 
+            // tbAngularVelocityZ
+            // 
+            this.tbAngularVelocityZ.Location = new System.Drawing.Point(391, 74);
+            this.tbAngularVelocityZ.Name = "tbAngularVelocityZ";
+            this.tbAngularVelocityZ.Size = new System.Drawing.Size(70, 20);
+            this.tbAngularVelocityZ.TabIndex = 47;
+            // 
+            // lbAngularVelocityZ
+            // 
+            this.lbAngularVelocityZ.AutoSize = true;
+            this.lbAngularVelocityZ.Location = new System.Drawing.Point(289, 77);
+            this.lbAngularVelocityZ.Name = "lbAngularVelocityZ";
+            this.lbAngularVelocityZ.Size = new System.Drawing.Size(87, 13);
+            this.lbAngularVelocityZ.TabIndex = 46;
+            this.lbAngularVelocityZ.Text = "AngularVelocityZ";
+            // 
+            // tbVericalThrust
+            // 
+            this.tbVericalThrust.Location = new System.Drawing.Point(391, 100);
+            this.tbVericalThrust.Name = "tbVericalThrust";
+            this.tbVericalThrust.Size = new System.Drawing.Size(70, 20);
+            this.tbVericalThrust.TabIndex = 49;
+            // 
+            // lbVericalThrust
+            // 
+            this.lbVericalThrust.AutoSize = true;
+            this.lbVericalThrust.Location = new System.Drawing.Point(289, 103);
+            this.lbVericalThrust.Name = "lbVericalThrust";
+            this.lbVericalThrust.Size = new System.Drawing.Size(69, 13);
+            this.lbVericalThrust.TabIndex = 48;
+            this.lbVericalThrust.Text = "VericalThrust";
+            // 
+            // tbManipulatorState
+            // 
+            this.tbManipulatorState.Location = new System.Drawing.Point(391, 126);
+            this.tbManipulatorState.Name = "tbManipulatorState";
+            this.tbManipulatorState.Size = new System.Drawing.Size(70, 20);
+            this.tbManipulatorState.TabIndex = 51;
+            // 
+            // lbManipulatorState
+            // 
+            this.lbManipulatorState.AutoSize = true;
+            this.lbManipulatorState.Location = new System.Drawing.Point(289, 129);
+            this.lbManipulatorState.Name = "lbManipulatorState";
+            this.lbManipulatorState.Size = new System.Drawing.Size(87, 13);
+            this.lbManipulatorState.TabIndex = 50;
+            this.lbManipulatorState.Text = "ManipulatorState";
+            // 
+            // tbManipulatorRotate
+            // 
+            this.tbManipulatorRotate.Location = new System.Drawing.Point(391, 152);
+            this.tbManipulatorRotate.Name = "tbManipulatorRotate";
+            this.tbManipulatorRotate.Size = new System.Drawing.Size(70, 20);
+            this.tbManipulatorRotate.TabIndex = 53;
+            // 
+            // lbManipulatorRotate
+            // 
+            this.lbManipulatorRotate.AutoSize = true;
+            this.lbManipulatorRotate.Location = new System.Drawing.Point(289, 155);
+            this.lbManipulatorRotate.Name = "lbManipulatorRotate";
+            this.lbManipulatorRotate.Size = new System.Drawing.Size(94, 13);
+            this.lbManipulatorRotate.TabIndex = 52;
+            this.lbManipulatorRotate.Text = "ManipulatorRotate";
+            // 
+            // tbCameraRotate
+            // 
+            this.tbCameraRotate.Location = new System.Drawing.Point(391, 178);
+            this.tbCameraRotate.Name = "tbCameraRotate";
+            this.tbCameraRotate.Size = new System.Drawing.Size(70, 20);
+            this.tbCameraRotate.TabIndex = 55;
+            // 
+            // lbCameraRotate
+            // 
+            this.lbCameraRotate.AutoSize = true;
+            this.lbCameraRotate.Location = new System.Drawing.Point(289, 181);
+            this.lbCameraRotate.Name = "lbCameraRotate";
+            this.lbCameraRotate.Size = new System.Drawing.Size(75, 13);
+            this.lbCameraRotate.TabIndex = 54;
+            this.lbCameraRotate.Text = "CameraRotate";
+            // 
+            // tbRollInc
+            // 
+            this.tbRollInc.Location = new System.Drawing.Point(391, 204);
+            this.tbRollInc.Name = "tbRollInc";
+            this.tbRollInc.Size = new System.Drawing.Size(70, 20);
+            this.tbRollInc.TabIndex = 57;
+            // 
+            // lbRollInc
+            // 
+            this.lbRollInc.AutoSize = true;
+            this.lbRollInc.Location = new System.Drawing.Point(289, 207);
+            this.lbRollInc.Name = "lbRollInc";
+            this.lbRollInc.Size = new System.Drawing.Size(40, 13);
+            this.lbRollInc.TabIndex = 56;
+            this.lbRollInc.Text = "RollInc";
+            // 
+            // tbPitchInc
+            // 
+            this.tbPitchInc.Location = new System.Drawing.Point(391, 229);
+            this.tbPitchInc.Name = "tbPitchInc";
+            this.tbPitchInc.Size = new System.Drawing.Size(70, 20);
+            this.tbPitchInc.TabIndex = 59;
+            // 
+            // lbPitchInc
+            // 
+            this.lbPitchInc.AutoSize = true;
+            this.lbPitchInc.Location = new System.Drawing.Point(289, 232);
+            this.lbPitchInc.Name = "lbPitchInc";
+            this.lbPitchInc.Size = new System.Drawing.Size(46, 13);
+            this.lbPitchInc.TabIndex = 58;
+            this.lbPitchInc.Text = "PitchInc";
+            // 
+            // tbResetInitialization
+            // 
+            this.tbResetInitialization.Location = new System.Drawing.Point(391, 255);
+            this.tbResetInitialization.Name = "tbResetInitialization";
+            this.tbResetInitialization.Size = new System.Drawing.Size(70, 20);
+            this.tbResetInitialization.TabIndex = 61;
+            // 
+            // lbResetInitialization
+            // 
+            this.lbResetInitialization.AutoSize = true;
+            this.lbResetInitialization.Location = new System.Drawing.Point(289, 258);
+            this.lbResetInitialization.Name = "lbResetInitialization";
+            this.lbResetInitialization.Size = new System.Drawing.Size(89, 13);
+            this.lbResetInitialization.TabIndex = 60;
+            this.lbResetInitialization.Text = "ResetInitialization";
+            // 
+            // tbLightsState
+            // 
+            this.tbLightsState.Location = new System.Drawing.Point(391, 281);
+            this.tbLightsState.Name = "tbLightsState";
+            this.tbLightsState.Size = new System.Drawing.Size(70, 20);
+            this.tbLightsState.TabIndex = 63;
+            // 
+            // lbLightsState
+            // 
+            this.lbLightsState.AutoSize = true;
+            this.lbLightsState.Location = new System.Drawing.Point(289, 284);
+            this.lbLightsState.Name = "lbLightsState";
+            this.lbLightsState.Size = new System.Drawing.Size(60, 13);
+            this.lbLightsState.TabIndex = 62;
+            this.lbLightsState.Text = "LightsState";
+            // 
+            // tbStabilizationState
+            // 
+            this.tbStabilizationState.Location = new System.Drawing.Point(391, 307);
+            this.tbStabilizationState.Name = "tbStabilizationState";
+            this.tbStabilizationState.Size = new System.Drawing.Size(70, 20);
+            this.tbStabilizationState.TabIndex = 65;
+            // 
+            // lbStabilizationState
+            // 
+            this.lbStabilizationState.AutoSize = true;
+            this.lbStabilizationState.Location = new System.Drawing.Point(289, 310);
+            this.lbStabilizationState.Name = "lbStabilizationState";
+            this.lbStabilizationState.Size = new System.Drawing.Size(88, 13);
+            this.lbStabilizationState.TabIndex = 64;
+            this.lbStabilizationState.Text = "StabilizationState";
+            // 
+            // tbResetPosition
+            // 
+            this.tbResetPosition.Location = new System.Drawing.Point(391, 333);
+            this.tbResetPosition.Name = "tbResetPosition";
+            this.tbResetPosition.Size = new System.Drawing.Size(70, 20);
+            this.tbResetPosition.TabIndex = 67;
+            // 
+            // lbResetPosition
+            // 
+            this.lbResetPosition.AutoSize = true;
+            this.lbResetPosition.Location = new System.Drawing.Point(289, 336);
+            this.lbResetPosition.Name = "lbResetPosition";
+            this.lbResetPosition.Size = new System.Drawing.Size(72, 13);
+            this.lbResetPosition.TabIndex = 66;
+            this.lbResetPosition.Text = "ResetPosition";
+            // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1577, 939);
+            this.ClientSize = new System.Drawing.Size(1051, 610);
+            this.Controls.Add(this.tbResetPosition);
+            this.Controls.Add(this.lbResetPosition);
+            this.Controls.Add(this.tbStabilizationState);
+            this.Controls.Add(this.lbStabilizationState);
+            this.Controls.Add(this.tbLightsState);
+            this.Controls.Add(this.lbLightsState);
+            this.Controls.Add(this.tbResetInitialization);
+            this.Controls.Add(this.lbResetInitialization);
+            this.Controls.Add(this.tbPitchInc);
+            this.Controls.Add(this.lbPitchInc);
+            this.Controls.Add(this.tbRollInc);
+            this.Controls.Add(this.lbRollInc);
+            this.Controls.Add(this.tbCameraRotate);
+            this.Controls.Add(this.lbCameraRotate);
+            this.Controls.Add(this.tbManipulatorRotate);
+            this.Controls.Add(this.lbManipulatorRotate);
+            this.Controls.Add(this.tbManipulatorState);
+            this.Controls.Add(this.lbManipulatorState);
+            this.Controls.Add(this.tbVericalThrust);
+            this.Controls.Add(this.lbVericalThrust);
+            this.Controls.Add(this.tbAngularVelocityZ);
+            this.Controls.Add(this.lbAngularVelocityZ);
+            this.Controls.Add(this.tbPowerTarget);
+            this.Controls.Add(this.lbPowerTarget);
+            this.Controls.Add(this.tbHorizontalVector);
+            this.Controls.Add(this.lbHorizontalVector);
+            this.Controls.Add(this.buttonGamepad);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.label16);
             this.Controls.Add(this.yawKd);
@@ -797,7 +1026,6 @@
             this.Controls.Add(this.rollKp);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
-            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "MainForm";
             this.Text = "SEVROV v2";
             this.Load += new System.EventHandler(this.MainForm_Load);
@@ -876,6 +1104,34 @@
         private System.Windows.Forms.NumericUpDown yawKi;
         private System.Windows.Forms.NumericUpDown yawKp;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Timer timerGamepad;
+        private System.Windows.Forms.Button buttonGamepad;
+        private System.Windows.Forms.Label lbHorizontalVector;
+        private System.Windows.Forms.TextBox tbHorizontalVector;
+        private System.Windows.Forms.TextBox tbPowerTarget;
+        private System.Windows.Forms.Label lbPowerTarget;
+        private System.Windows.Forms.TextBox tbAngularVelocityZ;
+        private System.Windows.Forms.Label lbAngularVelocityZ;
+        private System.Windows.Forms.TextBox tbVericalThrust;
+        private System.Windows.Forms.Label lbVericalThrust;
+        private System.Windows.Forms.TextBox tbManipulatorState;
+        private System.Windows.Forms.Label lbManipulatorState;
+        private System.Windows.Forms.TextBox tbManipulatorRotate;
+        private System.Windows.Forms.Label lbManipulatorRotate;
+        private System.Windows.Forms.TextBox tbCameraRotate;
+        private System.Windows.Forms.Label lbCameraRotate;
+        private System.Windows.Forms.TextBox tbRollInc;
+        private System.Windows.Forms.Label lbRollInc;
+        private System.Windows.Forms.TextBox tbPitchInc;
+        private System.Windows.Forms.Label lbPitchInc;
+        private System.Windows.Forms.TextBox tbResetInitialization;
+        private System.Windows.Forms.Label lbResetInitialization;
+        private System.Windows.Forms.TextBox tbLightsState;
+        private System.Windows.Forms.Label lbLightsState;
+        private System.Windows.Forms.TextBox tbStabilizationState;
+        private System.Windows.Forms.Label lbStabilizationState;
+        private System.Windows.Forms.TextBox tbResetPosition;
+        private System.Windows.Forms.Label lbResetPosition;
     }
 }
 

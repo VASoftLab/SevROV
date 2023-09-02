@@ -9,6 +9,8 @@
 #include <QDataStream>
 #include <QDateTime>
 
+const int LIGHT_ONOFF_PAUSE = 500;
+
 class SevROVControlData : public SevROVData
 {
 public:

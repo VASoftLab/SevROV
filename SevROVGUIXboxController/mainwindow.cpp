@@ -8,16 +8,19 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+    setWindowIcon(QIcon(":/logo/img/sevrov.png"));
+
     // Путь к файлу настроек
     settingsFileName = QApplication::applicationDirPath() +
                        QDir::separator() + "settings.ini";
 
     // Фиксируем размер окна и убираем иконку ресайза
-    setFixedSize(QSize(992, 720));
-    statusBar()->setSizeGripEnabled(false);
+    setFixedSize(QSize(992, 650));
+    // statusBar()->setSizeGripEnabled(false);
     // Центрируем окно в пределах экрана
     move(screen()->geometry().center() - frameGeometry().center());
-    setWindowTitle("ТНПА :: Модуль управления");
+    setWindowTitle("ТНПА :: Модуль управления :: " + QString(APP_VERSION.c_str()));
 
     // Создаем объект джойстик-контроллера и получаем список доступных джойстиков
     jsController = new SevROVXboxController();
@@ -95,9 +98,6 @@ MainWindow::MainWindow(QWidget *parent)
     xbox.LTrigger = -32768;
     xbox.RTrigger = -32768;
 
-    ui->gbAxis->setEnabled(jsConnected);
-    ui->gbButtons->setEnabled(jsConnected);
-
     controlTimer = new QTimer(this);
     connect(controlTimer, &QTimer::timeout,
             this, &MainWindow::OnControlTimer);
@@ -109,8 +109,14 @@ MainWindow::MainWindow(QWidget *parent)
 
     connect(&rovConnector, SIGNAL(OnConnected()), this, SLOT(OnSocketConnect()));
     connect(&rovConnector, SIGNAL(OnDisconnected()), this, SLOT(OnSocketDisconnect()));
-    connect(&rovConnector, SIGNAL(OnProcessTelemetryDatagram()), this, SLOT(OnSocketProcessTelemetryDatagram()));    
+    connect(&rovConnector, SIGNAL(OnProcessTelemetryDatagram()), this, SLOT(OnSocketProcessTelemetryDatagram()));
 
+    ui->gbAxis->setEnabled(jsConnected);
+    ui->gbButtons->setEnabled(jsConnected);
+    ui->gbPID->setEnabled(jsConnected);
+    ui->gbControl->setEnabled(jsConnected);
+
+    ui->gbTelemetry->setEnabled(false);
     ui->edAUVConnection->setEnabled(false);
 
     loadSettings();
@@ -161,6 +167,8 @@ void MainWindow::on_btnJoystick_clicked()
 
     ui->gbAxis->setEnabled(jsConnected);
     ui->gbButtons->setEnabled(jsConnected);
+    ui->gbPID->setEnabled(jsConnected);
+    ui->gbControl->setEnabled(jsConnected);
 }
 
 void MainWindow::OnButtonA(short value)
@@ -279,14 +287,14 @@ void MainWindow::OnControlTimer()
                                      updatePID,
                                      &rovConnector.control);
 
-    ui->edHorizontalVectorX->setText(QString::number(rovConnector.control.getHorizontalVectorX()));
-    ui->edHorizontalVectorY->setText(QString::number(rovConnector.control.getHorizontalVectorY()));
-    ui->edVericalThrust->setText(QString::number(rovConnector.control.getVericalThrust()));
-    ui->edPowerTarget->setText(QString::number(rovConnector.control.getPowerTarget()));
-    ui->edAngularVelocityZ->setText(QString::number(rovConnector.control.getAngularVelocityZ()));
+    ui->edHorizontalVectorX->setText(QString::number(rovConnector.control.getHorizontalVectorX(), 'f', 2));
+    ui->edHorizontalVectorY->setText(QString::number(rovConnector.control.getHorizontalVectorY(), 'f', 2));
+    ui->edVericalThrust->setText(QString::number(rovConnector.control.getVericalThrust(), 'f', 2));
+    ui->edPowerTarget->setText(QString::number(rovConnector.control.getPowerTarget(), 'f', 2));
+    ui->edAngularVelocityZ->setText(QString::number(rovConnector.control.getAngularVelocityZ(), 'f', 2));
 
     ui->edManipulatorState->setText(QString::number(rovConnector.control.getManipulatorState()));
-    ui->edManipulatorRotate->setText(QString::number(rovConnector.control.getManipulatorRotate()));
+    ui->edManipulatorRotate->setText(QString::number(rovConnector.control.getManipulatorRotate(), 'f', 2));
     ui->edCameraRotate->setText(QString::number(rovConnector.control.getCameraRotate()));
 
     ui->edResetInitialization->setText(QString::number(rovConnector.control.getResetInitialization()));
@@ -365,12 +373,16 @@ void MainWindow::on_btnAUV_clicked()
 
 void MainWindow::OnSocketConnect()
 {
+    ui->gbTelemetry->setEnabled(true);
+
     qDebug() << "OnSocketConnect()";
     ui->btnAUV->setText("ОТКЛЮЧИТЬСЯ ОТ ТНПА");
     ui->edAUVConnection->setText("Соединение с ТНПА установлено");
 }
 void MainWindow::OnSocketDisconnect()
 {
+    ui->gbTelemetry->setEnabled(false);
+
     qDebug() << "OnSocketDisconnect()";
     ui->btnAUV->setText("ПОДКЛЮЧИТЬСЯ К ТНПА");
     ui->edAUVConnection->setText("Соединение с ТНПА разорвано");

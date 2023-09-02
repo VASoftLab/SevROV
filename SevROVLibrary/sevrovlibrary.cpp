@@ -13,20 +13,20 @@ void SevROVLibrary::XboxToControlData(const XboxGamepad xbox,
                                       bool updatepid,
                                       SevROVControlData *data)
 {
-    auto leftX  = xbox.LStickX < JOYSTICK_DEAD_ZONE ? 0 : xbox.LStickX / SHRT_MAX;
-    auto leftY  = xbox.LStickY < JOYSTICK_DEAD_ZONE ? 0 : xbox.LStickY / SHRT_MAX;
+    float leftX  = qFabs((float)xbox.LStickX) < JOYSTICK_DEAD_ZONE ? 0 : (float)xbox.LStickX / SHRT_MAX;
+    float leftY  = qFabs((float)xbox.LStickY) < JOYSTICK_DEAD_ZONE ? 0 : -(float)xbox.LStickY / SHRT_MAX;
     data->setHorizontalVectorX(leftX);
     data->setHorizontalVectorY(leftY);
 
-    auto rightX  = xbox.RStickY < JOYSTICK_DEAD_ZONE ? 0 : xbox.RStickY / SHRT_MAX;
-    auto rightY  = xbox.RStickX < JOYSTICK_DEAD_ZONE ? 0 : xbox.RStickX / SHRT_MAX;
+    float rightX  = qFabs((float)xbox.RStickY) < JOYSTICK_DEAD_ZONE ? 0 : -(float)xbox.RStickY / SHRT_MAX;
+    float rightY  = qFabs((float)xbox.RStickX) < JOYSTICK_DEAD_ZONE ? 0 : (float)xbox.RStickX / SHRT_MAX;
     data->setAngularVelocityZ(rightY);
     data->setVericalThrust(rightX);
 
     auto gripDirection = xbox.LBumper - xbox.RBumper;
     data->setManipulatorState(gripDirection);
 
-    auto manipulatorRotateDirection = (xbox.LTrigger / SHRT_MAX - xbox.RTrigger / SHRT_MAX) / 2;
+    float manipulatorRotateDirection = (float)(xbox.LTrigger - xbox.RTrigger) / SHRT_MAX / 2;
     data->setManipulatorRotate(manipulatorRotateDirection);
 
     // auto cameraRotateDirection = ((xbox.DPad == 1) ? 1 : 0) - ((xbox.DPad == 4) ? 1 : 0);

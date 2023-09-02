@@ -19,7 +19,7 @@ namespace SevROVClient
         private readonly XInputController _gamepad;
         private readonly UsbCamera _camera;
         private readonly RovConnection _connection;
-       // private readonly Graphics _cameraGraphics;
+        // private readonly Graphics _cameraGraphics;
         private readonly Timer _inputTimer;
 
         private long _lastDataTransferTime;
@@ -46,7 +46,7 @@ namespace SevROVClient
             _inputTimer.Tick += inputTimer_Tick;
 
             _connected = false;
-           // _cameraGraphics = cameraImageBox.CreateGraphics();
+            // _cameraGraphics = cameraImageBox.CreateGraphics();
 
 
 
@@ -140,9 +140,9 @@ namespace SevROVClient
             {
                 XbtnCounter = 0;
             }
-            stab_state = (sbyte)(roll_stabilization_check.Checked ?  (stab_state | 0b00000001) : (stab_state & 0b11111110));
+            stab_state = (sbyte)(roll_stabilization_check.Checked ? (stab_state | 0b00000001) : (stab_state & 0b11111110));
             stab_state = (sbyte)(pitch_stabilization_check.Checked ? (stab_state | 0b00000010) : (stab_state & 0b11111101));
-            stab_state = (sbyte)(yaw_stabilization_check.Checked ?   (stab_state | 0b00000100) : (stab_state & 0b11111011));
+            stab_state = (sbyte)(yaw_stabilization_check.Checked ? (stab_state | 0b00000100) : (stab_state & 0b11111011));
             stab_state = (sbyte)(depth_stabilization_check.Checked ? (stab_state | 0b00001000) : (stab_state & 0b11110111));
             _controlData.StabilizationState = stab_state;
             _controlData.ResetPosition = (sbyte)(_gamepad.B ? 1 : 0);
@@ -159,7 +159,7 @@ namespace SevROVClient
             _controlData.DepthKp = (float)depthKp.Value;
             _controlData.DepthKi = (float)depthKi.Value;
             _controlData.DepthKd = (float)depthKd.Value;
-            
+
             if (updatePID)
             {
                 _controlData.UpdatePID = 1;
@@ -283,8 +283,8 @@ namespace SevROVClient
                 _cameraBuffer = _camera.GetBitmap();
             }
 
-           // var graphics = _cameraGraphics;
-           // graphics.DrawImageUnscaled(_cameraBuffer, new Point(0, 0));
+            // var graphics = _cameraGraphics;
+            // graphics.DrawImageUnscaled(_cameraBuffer, new Point(0, 0));
         }
 
         private void connectButton_Click(object sender, EventArgs e)
@@ -446,7 +446,7 @@ namespace SevROVClient
                 {
                     captureL.Pause();
                     captureL.Stop();
-                   // captureL.Dispose();
+                    // captureL.Dispose();
                     captureL = null;
                 }
 
@@ -455,6 +455,177 @@ namespace SevROVClient
             {
                 MessageBox.Show(ex.Message, "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void buttonGamepad_Click(object sender, EventArgs e)
+        {
+            if (timerGamepad.Enabled)
+            {
+                timerGamepad.Stop();
+                buttonGamepad.Text = "Gamepad Start";
+            }
+            else
+            {
+                timerGamepad.Start();
+                buttonGamepad.Text = "Gamepad Stop";
+            }
+
+        }
+
+        private void timerGamepad_Tick(object sender, EventArgs e)
+        {
+            _gamepad.Update();
+
+            _controlData.HorizontalVector = _gamepad.LeftThumb;
+            _controlData.PowerTarget = ((float)powerLimitValue1.Value);
+            _controlData.AngularVelocityZ = _gamepad.RightThumb.Y;
+            _controlData.VericalThrust = _gamepad.RightThumb.X;
+
+            var gripDirection = (_gamepad.LB ? 1 : 0) - (_gamepad.RB ? 1 : 0);
+            _controlData.ManipulatorState = gripDirection;
+
+            var manipulatorRotateDirection = _gamepad.LT - _gamepad.RT;
+            _controlData.ManipulatorRotate = manipulatorRotateDirection;
+
+            var cameraRotateDirection = (_gamepad.Y ? 1 : 0) - (_gamepad.A ? 1 : 0);
+            _controlData.CameraRotate = cameraRotateDirection;
+
+            var rollIncDir = (_gamepad.Right ? 1 : 0) - (_gamepad.Left ? 1 : 0);
+            _controlData.RollInc = rollIncDir;
+
+            var pitchIncDir = (_gamepad.Up ? 1 : 0) - (_gamepad.Down ? 1 : 0);
+            _controlData.PitchInc = pitchIncDir;
+
+            _controlData.ResetInitialization = (sbyte)(_gamepad.Start ? 1 : 0);
+            if (_gamepad.X)
+            {
+                if (XbtnCounter == 0)
+                {
+                    switch (_controlData.LightsState)
+                    {
+                        case (sbyte)0:
+                            _controlData.LightsState = (sbyte)1;
+                            break;
+                        case (sbyte)1:
+                            _controlData.LightsState = (sbyte)0;
+                            break;
+                    }
+                    XbtnCounter++;
+                }
+            }
+            else
+            {
+                XbtnCounter = 0;
+            }
+            stab_state = (sbyte)(roll_stabilization_check.Checked ? (stab_state | 0b00000001) : (stab_state & 0b11111110));
+            stab_state = (sbyte)(pitch_stabilization_check.Checked ? (stab_state | 0b00000010) : (stab_state & 0b11111101));
+            stab_state = (sbyte)(yaw_stabilization_check.Checked ? (stab_state | 0b00000100) : (stab_state & 0b11111011));
+            stab_state = (sbyte)(depth_stabilization_check.Checked ? (stab_state | 0b00001000) : (stab_state & 0b11110111));
+            _controlData.StabilizationState = stab_state;
+            _controlData.ResetPosition = (sbyte)(_gamepad.B ? 1 : 0);
+
+            _controlData.RollKp = (float)rollKp.Value;
+            _controlData.RollKi = (float)rollKi.Value;
+            _controlData.RollKd = (float)rollKd.Value;
+            _controlData.PitchKp = (float)pitchKp.Value;
+            _controlData.PitchKi = (float)pitchKi.Value;
+            _controlData.PitchKd = (float)pitchKd.Value;
+            _controlData.YawKp = (float)yawKp.Value;
+            _controlData.YawKi = (float)yawKi.Value;
+            _controlData.YawKd = (float)yawKd.Value;
+            _controlData.DepthKp = (float)depthKp.Value;
+            _controlData.DepthKi = (float)depthKi.Value;
+            _controlData.DepthKd = (float)depthKd.Value;
+
+            if (updatePID)
+            {
+                _controlData.UpdatePID = 1;
+                updatePID = false;
+            }
+            else
+            {
+                _controlData.UpdatePID = 0;
+            }
+
+            tbHorizontalVector.BeginInvoke(new Action(() =>
+            {
+                tbHorizontalVector.Text = $"{_controlData.HorizontalVector.X.ToString("n2")} : {_controlData.HorizontalVector.Y.ToString("n2")}";
+            }));
+
+            tbPowerTarget.BeginInvoke(new Action(() =>
+            {
+                tbPowerTarget.Text = _controlData.PowerTarget.ToString("n2");
+            }));
+
+            tbAngularVelocityZ.BeginInvoke(new Action(() =>
+            {
+                tbAngularVelocityZ.Text = _controlData.AngularVelocityZ.ToString("n2");
+            }));
+
+            tbVericalThrust.BeginInvoke(new Action(() =>
+            {
+                tbVericalThrust.Text = _controlData.VericalThrust.ToString("F");
+            }));
+
+            tbManipulatorState.BeginInvoke(new Action(() =>
+            {
+                tbManipulatorState.Text = _controlData.ManipulatorState.ToString("n2");
+            }));
+
+            tbManipulatorRotate.BeginInvoke(new Action(() =>
+            {
+                tbManipulatorRotate.Text = _controlData.ManipulatorRotate.ToString("n2");
+            }));
+
+            tbCameraRotate.BeginInvoke(new Action(() =>
+            {
+                tbCameraRotate.Text = _controlData.CameraRotate.ToString("F");
+            }));
+
+            tbRollInc.BeginInvoke(new Action(() =>
+            {
+                tbRollInc.Text = _controlData.RollInc.ToString("n2");
+            }));
+
+            tbPitchInc.BeginInvoke(new Action(() =>
+            {
+                tbPitchInc.Text = _controlData.PitchInc.ToString("n2");
+            }));
+
+            tbResetInitialization.BeginInvoke(new Action(() =>
+            {
+                tbResetInitialization.Text = _controlData.ResetInitialization.ToString("n2");
+            }));
+
+            tbLightsState.BeginInvoke(new Action(() =>
+            {
+                tbLightsState.Text = _controlData.LightsState.ToString("F");
+            }));
+
+            tbStabilizationState.BeginInvoke(new Action(() =>
+            {
+                tbStabilizationState.Text = _controlData.StabilizationState.ToString("n2");
+            }));
+
+            tbResetPosition.BeginInvoke(new Action(() =>
+            {
+                tbResetPosition.Text = _controlData.ResetPosition.ToString("F");
+            }));
+
+
+            //_controlData.RollKp;
+            //_controlData.RollKi;
+            //_controlData.RollKd;
+            //_controlData.PitchKp;
+            //_controlData.PitchKi;
+            //_controlData.PitchKd;
+            //_controlData.YawKp;
+            //_controlData.YawKi;
+            //_controlData.YawKd;
+            //_controlData.DepthKp;
+            //_controlData.DepthKi;
+            //_controlData.DepthKd;
+            //_controlData.UpdatePID;
         }
     }
 }

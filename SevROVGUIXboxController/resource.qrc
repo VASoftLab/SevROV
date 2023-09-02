@@ -2,5 +2,6 @@
     <qresource prefix="/logo">
         <file>img/sevrov.png</file>
         <file>img/sevsu.png</file>
+        <file>img/gamepad.png</file>
     </qresource>
 </RCC>

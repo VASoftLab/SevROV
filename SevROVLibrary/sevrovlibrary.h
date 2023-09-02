@@ -59,7 +59,8 @@ enum xbox_butn {
     Menu        // 7
 };
 
-const int JOYSTICK_DEAD_ZONE = 6000;
+const int JOYSTICK_DEAD_ZONE = 5000;
+const std::string APP_VERSION = "1.0.1";
 
 class SevROVLibrary
 {
