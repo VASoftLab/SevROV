@@ -26,6 +26,7 @@ private slots:
     void on_pushButtonConnect_clicked();
 
 public slots:
+    void OnSocketProcessConnectDatagram(QString ip, int port);
     void OnSocketProcessControlDatagram();
     void OnSocketConnect();
     void OnSocketDisconnect();

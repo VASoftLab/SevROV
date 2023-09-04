@@ -31,6 +31,8 @@ MainWindow::MainWindow(QWidget *parent)
     connect(&rovConnector, SIGNAL(OnConnected()), this, SLOT(OnSocketConnect()));
     connect(&rovConnector, SIGNAL(OnDisconnected()), this, SLOT(OnSocketDisconnect()));
     connect(&rovConnector, SIGNAL(OnProcessControlDatagram()), this, SLOT(OnSocketProcessControlDatagram()));
+    // connect(&rovConnector, SIGNAL(OnProcessConnectDatagram()), this, SLOT(OnSocketProcessConnectDatagram()));
+    connect(&rovConnector, &SevROVConnector::OnProcessConnectDatagram, this, &MainWindow::OnSocketProcessConnectDatagram);
 
     loadSettings();
 }
@@ -76,7 +78,7 @@ void MainWindow::OnSocketProcessControlDatagram()
     if ((rovConnector.getMode() & SevROVConnector::Mode::CONTROL_READ)
         == SevROVConnector::Mode::CONTROL_READ)
     {
-        rovConnector.control.printDebugInfo();
+        // rovConnector.control.printDebugInfo();
 
         ui->edHorizontalVectorX->setText(QString::number(rovConnector.control.getHorizontalVectorX(), 'f', 2));
         ui->edHorizontalVectorY->setText(QString::number(rovConnector.control.getHorizontalVectorY(), 'f', 2));
@@ -133,6 +135,11 @@ void MainWindow::OnSocketProcessControlDatagram()
         ui->edRollSetPoint->setText(QString::number(rovConnector.telemetry.getRollSetPoint(), 'f', 2));
         ui->edPitchSetPoint->setText(QString::number(rovConnector.telemetry.getPitchSetPoint(), 'f', 2));
     }
+}
+
+void MainWindow::OnSocketProcessConnectDatagram(QString ip, int port)
+{
+    qDebug() << "Connect Datagram Received..." << ip << ":" << port;
 }
 
 void MainWindow::loadSettings()

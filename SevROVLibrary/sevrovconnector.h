@@ -8,6 +8,7 @@
 
 const int CONTROL_PACKET_SIZE = 93;
 const int TELEMETRY_PACKET_SIZE = 28;
+const int CONNECT_PACKET_SIZE = 28;
 
 class SevROVConnector : public QObject
 {
@@ -36,6 +37,8 @@ public:
     void writeTelemetryDatagram(QHostAddress _host, int _port);
     void writeControlDatagram();
     void writeControlDatagram(QHostAddress _host, int _port);
+    void writeConnectDatagram();
+    void writeConnectDatagram(QHostAddress _host, int _port);
 
     void openConnection();
     void openConnection(int port);
@@ -65,6 +68,7 @@ signals:
     void OnProcessDatagram();
     void OnProcessTelemetryDatagram();
     void OnProcessControlDatagram();
+    void OnProcessConnectDatagram(QString ip, int port);
     void OnConnected();
     void OnDisconnected();
 };

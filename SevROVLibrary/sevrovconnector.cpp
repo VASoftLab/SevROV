@@ -81,6 +81,36 @@ void SevROVConnector::writeControlDatagram(QHostAddress _host, int _port)
     }
 }
 
+void SevROVConnector::writeConnectDatagram()
+{
+    QByteArray bytearray;
+    QDataStream stream(&bytearray, QIODeviceBase::WriteOnly);
+    stream.setFloatingPointPrecision(QDataStream::SinglePrecision);
+    stream.setVersion(QDataStream::Qt_6_3);
+    stream << 0xAA;
+    stream << 0xFF;
+
+    qint64 bytes = udpSocket.writeDatagram(bytearray, host, port);
+    qDebug() << "[" << QDateTime::currentMSecsSinceEpoch()
+             << "] Connect datagram:" << host.toString().toStdString().c_str()
+             << ":" << port << "- packet size:" << bytes << "[bytes]";
+
+}
+void SevROVConnector::writeConnectDatagram(QHostAddress _host, int _port)
+{
+    QByteArray bytearray;
+    QDataStream stream(&bytearray, QIODeviceBase::WriteOnly);
+    stream.setFloatingPointPrecision(QDataStream::SinglePrecision);
+    stream.setVersion(QDataStream::Qt_6_3);
+    stream << 0xAA;
+    stream << 0xFF;
+
+    qint64 bytes = udpSocket.writeDatagram(bytearray, _host, _port);
+    qDebug() << "[" << QDateTime::currentMSecsSinceEpoch()
+             << "] Connect datagram:" << _host.toString().toStdString().c_str()
+             << ":" << _port << "- packet size:" << bytes << "[bytes]";
+}
+
 void SevROVConnector::processDatagram()
 {
     if (udpSocket.pendingDatagramSize() == TELEMETRY_PACKET_SIZE)
@@ -242,6 +272,27 @@ void SevROVConnector::processDatagram()
                     writeTelemetryDatagram(senderAddress, senderPort);
             }
         }
+    }
+
+    if (udpSocket.pendingDatagramSize() == CONNECT_PACKET_SIZE)
+    {
+        QByteArray datagram;
+        QHostAddress senderAddress = QHostAddress::Null;
+        quint16 senderPort = 0;
+
+        do {
+            datagram.resize(udpSocket.pendingDatagramSize());
+            udpSocket.readDatagram(datagram.data(), datagram.size(),
+                                   &senderAddress, &senderPort);
+        } while (udpSocket.hasPendingDatagrams());
+
+        QDataStream in(&datagram, QIODevice::ReadOnly);
+        in.setFloatingPointPrecision(QDataStream::SinglePrecision);
+        in.setVersion(QDataStream::Qt_6_3);
+
+        QString senderIP = senderAddress.toString();
+
+        emit OnProcessConnectDatagram(senderIP, senderPort);
     }
 }
 

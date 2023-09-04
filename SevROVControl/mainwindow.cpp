@@ -374,8 +374,10 @@ void MainWindow::on_btnAUV_clicked()
         // Соединяемся с хостом
         rovConnector.connectToHost(ui->edIP->text(),
                                    ui->edPort->text().toInt());
-    }
 
+        if (rovConnector.getIsConnected())
+            rovConnector.writeConnectDatagram();
+    }
 }
 
 void MainWindow::OnSocketConnect()
@@ -410,10 +412,9 @@ void MainWindow::OnSocketProcessTelemetryDatagram()
         ui->edRollSetPoint->setText(QString::number(rovConnector.telemetry.getRollSetPoint(), 'f', 2));
         ui->edPitchSetPoint->setText(QString::number(rovConnector.telemetry.getPitchSetPoint(), 'f', 2));
 
-        rovConnector.telemetry.printDebugInfo();
+        // rovConnector.telemetry.printDebugInfo();
     }
 }
-
 
 void MainWindow::on_pbPIDUpdate_clicked()
 {
