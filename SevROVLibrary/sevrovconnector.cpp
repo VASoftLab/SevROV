@@ -248,6 +248,7 @@ void SevROVConnector::processDatagram()
 // !!! Должно использоваться только для коннектора в режиме сервера !!!
 void SevROVConnector::openConnection()
 {
+    qDebug() << "openConnection(): " << host.toString().toStdString().c_str() << ":" << port;
     // Открываем канал для входящих сообщений
     bool result = udpSocket.bind(host, port);
 
@@ -263,6 +264,7 @@ void SevROVConnector::openConnection(int port)
     this->host = QHostAddress(ip);
     this->port = port;
 
+    qDebug() << "openConnection(): " << host.toString().toStdString().c_str() << ":" << port;
     bool result = udpSocket.bind(host, port);
 
     if (result)
@@ -278,6 +280,7 @@ void SevROVConnector::openConnection(QString ip, int port)
     this->host = QHostAddress(ip);
     this->port = port;
 
+    qDebug() << "openConnection(): " << host.toString().toStdString().c_str() << ":" << port;
     bool result = udpSocket.bind(host, port);
 
     if (result)
@@ -288,6 +291,7 @@ void SevROVConnector::openConnection(QString ip, int port)
 // !!! Должно использоваться только для коннектора в режиме сервера !!!
 void SevROVConnector::closeConnection()
 {
+    qDebug() << "closeConnection(): " << host.toString().toStdString().c_str() << ":" << port;
     udpSocket.close();
 }
 
@@ -320,9 +324,11 @@ std::uint8_t SevROVConnector::getMode()
 
 void SevROVConnector::connectToHost(QString ip, int port)
 {
+    qDebug() << "connectToHost(): " << QHostAddress(ip).toString().toStdString().c_str() << ":" << port;
     udpSocket.connectToHost(QHostAddress(ip), port, QIODeviceBase::ReadWrite);
 }
 void SevROVConnector::disconnectFromHost()
 {
+    qDebug() << "disconnectFromHost(): " << QHostAddress(ip).toString().toStdString().c_str() << ":" << port;
     udpSocket.disconnectFromHost();
 }

@@ -60,17 +60,17 @@ void MainWindow::on_pushButtonConnect_clicked()
 
 void MainWindow::OnSocketConnect()
 {
-    qDebug() << "OnSocketConnect()";
+    qDebug() << "Socket connected successfully";
     ui->pushButtonConnect->setText("РАЗЪЕДИНИТЬ");
 }
 void MainWindow::OnSocketDisconnect()
 {
-    qDebug() << "OnSocketDisconnect()";
+    qDebug() << "Socket disconnected successfully";
     ui->pushButtonConnect->setText("СОЕДИНИТЬ");
 }
 void MainWindow::OnSocketProcessControlDatagram()
 {
-    qDebug() << "OnSocketProcessControlDatagram()";
+    qDebug() << "Control Datagram Received...";
 
     // Проверяем, разрешено ли коннектору читать телеметрию
     if ((rovConnector.getMode() & SevROVConnector::Mode::CONTROL_READ)

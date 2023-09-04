@@ -38,8 +38,8 @@ else:unix: PRE_TARGETDEPS += $$OUT_PWD/../SevROVLibrary/libSevROVLibrary.a
 
 
 win32 {
-    LIBS += -L D:/SDL2-2.28.2-mingw/x86_64-w64-mingw32/lib -lSDL2
-    INCLUDEPATH += D:/SDL2-2.28.2-mingw/x86_64-w64-mingw32/include
+    LIBS += -L C:/SDL2-2.28.2-mingw/x86_64-w64-mingw32/lib -lSDL2
+    INCLUDEPATH += C:/SDL2-2.28.2-mingw/x86_64-w64-mingw32/include
 }
 unix
 {

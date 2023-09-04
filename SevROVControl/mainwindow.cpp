@@ -148,8 +148,8 @@ void MainWindow::on_btnJoystick_clicked()
 
         // IP b Port будут использоваться только для записи датаграммы
         // Мы поймем, что ответ пришел, если поднимется событие OnProcessTelemetryDatagram
-        rovConnector.setIP(ui->edIP->text());
-        rovConnector.setPort(ui->edPort->text().toInt());
+        // rovConnector.setIP(ui->edIP->text());
+        // rovConnector.setPort(ui->edPort->text().toInt());
 
         controlTimer->start(100);
     }
@@ -248,6 +248,7 @@ void MainWindow::OnAxisRTrigger(short value)
 }
 void MainWindow::OnControlTimer()
 {
+    // Получаем текущие настройки регулятора
     float powerLimit = ui->sbPowerLimit->value();
     bool rollStabilization = ui->cbRollStab->isChecked();
     bool pitchStabilization = ui->cbPitchStab->isChecked();
@@ -274,6 +275,7 @@ void MainWindow::OnControlTimer()
     depthPID.setKi(ui->sbDepthKi->value());
     depthPID.setKd(ui->sbDepthKd->value());
 
+    // Пересчитываем состояние джойстика в управление
     SevROVLibrary::XboxToControlData(xbox,
                                      powerLimit,
                                      rollStabilization,
@@ -287,6 +289,7 @@ void MainWindow::OnControlTimer()
                                      updatePID,
                                      &rovConnector.control);
 
+    // Отображаем на панели сигналы контроля
     ui->edHorizontalVectorX->setText(QString::number(rovConnector.control.getHorizontalVectorX(), 'f', 2));
     ui->edHorizontalVectorY->setText(QString::number(rovConnector.control.getHorizontalVectorY(), 'f', 2));
     ui->edVericalThrust->setText(QString::number(rovConnector.control.getVericalThrust(), 'f', 2));
@@ -325,8 +328,7 @@ void MainWindow::OnControlTimer()
     ui->edUpdatePID->setText(QString::number(rovConnector.control.getUpdatePID()));
 
 
-    // При соединении с джойстиком уже задали IP и Port,
-    // которые будут использоваться для записи датаграммы
+    // При соединении уже задали IP и Port, которые будут использоваться для записи датаграммы
     if (rovConnector.getIsConnected())
         rovConnector.writeControlDatagram();
 
@@ -360,11 +362,16 @@ void MainWindow::on_btnAUV_clicked()
     // Будем использовать connectToHost и disconnectFromHost
     if (rovConnector.getIsConnected())
     {
+        // Отключаемся
         rovConnector.disconnectFromHost();
     }
     else
     {
-        // Создаем связь с сервером: Определяем IP и номер порта сервера
+        // Запоминаем IP и Port сервера
+        rovConnector.setIP(ui->edIP->text());
+        rovConnector.setPort(ui->edPort->text().toInt());
+
+        // Соединяемся с хостом
         rovConnector.connectToHost(ui->edIP->text(),
                                    ui->edPort->text().toInt());
     }
@@ -375,7 +382,7 @@ void MainWindow::OnSocketConnect()
 {
     ui->gbTelemetry->setEnabled(true);
 
-    qDebug() << "OnSocketConnect()";
+    qDebug() << "Socket connected successfully";
     ui->btnAUV->setText("ОТКЛЮЧИТЬСЯ ОТ ТНПА");
     ui->edAUVConnection->setText("Соединение с ТНПА установлено");
 }
@@ -383,13 +390,13 @@ void MainWindow::OnSocketDisconnect()
 {
     ui->gbTelemetry->setEnabled(false);
 
-    qDebug() << "OnSocketDisconnect()";
+    qDebug() << "Socket disconnected successfully";
     ui->btnAUV->setText("ПОДКЛЮЧИТЬСЯ К ТНПА");
     ui->edAUVConnection->setText("Соединение с ТНПА разорвано");
 }
 void MainWindow::OnSocketProcessTelemetryDatagram()
 {
-    qDebug() << "OnSocketProcessTelemetryDatagram()";
+    qDebug() << "Telemetry Datagram Received...";
 
     // Проверяем, разрешено ли коннектору читать телеметрию
     if ((rovConnector.getMode() & SevROVConnector::Mode::TELEMETRY_READ)
