@@ -8,7 +8,7 @@
 
 const int CONTROL_PACKET_SIZE = 93;
 const int TELEMETRY_PACKET_SIZE = 28;
-const int CONNECT_PACKET_SIZE = 28;
+const int CONNECT_PACKET_SIZE = 2;
 
 class SevROVConnector : public QObject
 {

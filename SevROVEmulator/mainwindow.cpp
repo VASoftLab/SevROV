@@ -139,7 +139,7 @@ void MainWindow::OnSocketProcessControlDatagram()
 
 void MainWindow::OnSocketProcessConnectDatagram(QString ip, int port)
 {
-    qDebug() << "Connect Datagram Received..." << ip << ":" << port;
+    qDebug() << "Connect Datagram Received..." << ip.toStdString().c_str() << ":" << port;
 }
 
 void MainWindow::loadSettings()

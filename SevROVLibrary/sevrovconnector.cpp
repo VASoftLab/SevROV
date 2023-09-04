@@ -87,8 +87,9 @@ void SevROVConnector::writeConnectDatagram()
     QDataStream stream(&bytearray, QIODeviceBase::WriteOnly);
     stream.setFloatingPointPrecision(QDataStream::SinglePrecision);
     stream.setVersion(QDataStream::Qt_6_3);
-    stream << 0xAA;
-    stream << 0xFF;
+
+    stream << (std::byte)0xAA;
+    stream << (std::byte)0xFF;
 
     qint64 bytes = udpSocket.writeDatagram(bytearray, host, port);
     qDebug() << "[" << QDateTime::currentMSecsSinceEpoch()
@@ -102,8 +103,8 @@ void SevROVConnector::writeConnectDatagram(QHostAddress _host, int _port)
     QDataStream stream(&bytearray, QIODeviceBase::WriteOnly);
     stream.setFloatingPointPrecision(QDataStream::SinglePrecision);
     stream.setVersion(QDataStream::Qt_6_3);
-    stream << 0xAA;
-    stream << 0xFF;
+    stream << (std::byte)0xAA;
+    stream << (std::byte)0xFF;
 
     qint64 bytes = udpSocket.writeDatagram(bytearray, _host, _port);
     qDebug() << "[" << QDateTime::currentMSecsSinceEpoch()
@@ -289,6 +290,12 @@ void SevROVConnector::processDatagram()
         QDataStream in(&datagram, QIODevice::ReadOnly);
         in.setFloatingPointPrecision(QDataStream::SinglePrecision);
         in.setVersion(QDataStream::Qt_6_3);
+
+        float A;
+        float B;
+
+        in >> A;
+        in >> B;
 
         QString senderIP = senderAddress.toString();
 
