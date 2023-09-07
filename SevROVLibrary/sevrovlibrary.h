@@ -5,6 +5,9 @@
 #include "sevrovcontroldata.h"
 #include "sevrovpidcontroller.h"
 
+const std::string APP_VERSION = "1.1.3";
+const int JOYSTICK_DEAD_ZONE = 5000;
+
 // https://support.xbox.com/en-US/help/hardware-network/controller/xbox-one-wireless-controller
 struct XboxGamepad {
     short LStickX;  // 0
@@ -47,7 +50,6 @@ enum xbox_axis {
 };
 #endif
 
-
 enum xbox_butn {
     A,          // 0
     B,          // 1
@@ -58,9 +60,6 @@ enum xbox_butn {
     View,       // 6
     Menu        // 7
 };
-
-const int JOYSTICK_DEAD_ZONE = 5000;
-const std::string APP_VERSION = "1.1.2";
 
 class SevROVLibrary
 {

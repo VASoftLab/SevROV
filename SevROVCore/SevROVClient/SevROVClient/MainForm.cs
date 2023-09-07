@@ -329,7 +329,8 @@ namespace SevROVClient
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-
+            hostInput.Text = "127.0.0.1";
+            portInput.Text = "2525";
         }
 
         private void label7_Click(object sender, EventArgs e)
@@ -626,6 +627,86 @@ namespace SevROVClient
             //_controlData.DepthKi;
             //_controlData.DepthKd;
             //_controlData.UpdatePID;
+        }
+
+        private void buttonSendPacket_Click(object sender, EventArgs e)
+        {
+            // if (!_connected) return;
+
+            _gamepad.Update();
+
+            _controlData.HorizontalVector = _gamepad.LeftThumb;
+            _controlData.PowerTarget = ((float)powerLimitValue1.Value);
+            _controlData.AngularVelocityZ = _gamepad.RightThumb.Y;
+            _controlData.VericalThrust = _gamepad.RightThumb.X;
+
+            var gripDirection = (_gamepad.LB ? 1 : 0) - (_gamepad.RB ? 1 : 0);
+            _controlData.ManipulatorState = gripDirection;
+
+            var manipulatorRotateDirection = _gamepad.LT - _gamepad.RT;
+            _controlData.ManipulatorRotate = manipulatorRotateDirection;
+
+            var cameraRotateDirection = (_gamepad.Y ? 1 : 0) - (_gamepad.A ? 1 : 0);
+            _controlData.CameraRotate = cameraRotateDirection;
+
+            var rollIncDir = (_gamepad.Right ? 1 : 0) - (_gamepad.Left ? 1 : 0);
+            _controlData.RollInc = rollIncDir;
+
+            var pitchIncDir = (_gamepad.Up ? 1 : 0) - (_gamepad.Down ? 1 : 0);
+            _controlData.PitchInc = pitchIncDir;
+
+            _controlData.ResetInitialization = (sbyte)(_gamepad.Start ? 1 : 0);
+            if (_gamepad.X)
+            {
+                if (XbtnCounter == 0)
+                {
+                    switch (_controlData.LightsState)
+                    {
+                        case (sbyte)0:
+                            _controlData.LightsState = (sbyte)1;
+                            break;
+                        case (sbyte)1:
+                            _controlData.LightsState = (sbyte)0;
+                            break;
+                    }
+                    XbtnCounter++;
+                }
+            }
+            else
+            {
+                XbtnCounter = 0;
+            }
+            stab_state = (sbyte)(roll_stabilization_check.Checked ? (stab_state | 0b00000001) : (stab_state & 0b11111110));
+            stab_state = (sbyte)(pitch_stabilization_check.Checked ? (stab_state | 0b00000010) : (stab_state & 0b11111101));
+            stab_state = (sbyte)(yaw_stabilization_check.Checked ? (stab_state | 0b00000100) : (stab_state & 0b11111011));
+            stab_state = (sbyte)(depth_stabilization_check.Checked ? (stab_state | 0b00001000) : (stab_state & 0b11110111));
+            _controlData.StabilizationState = stab_state;
+            _controlData.ResetPosition = (sbyte)(_gamepad.B ? 1 : 0);
+
+            _controlData.RollKp = (float)rollKp.Value;
+            _controlData.RollKi = (float)rollKi.Value;
+            _controlData.RollKd = (float)rollKd.Value;
+            _controlData.PitchKp = (float)pitchKp.Value;
+            _controlData.PitchKi = (float)pitchKi.Value;
+            _controlData.PitchKd = (float)pitchKd.Value;
+            _controlData.YawKp = (float)yawKp.Value;
+            _controlData.YawKi = (float)yawKi.Value;
+            _controlData.YawKd = (float)yawKd.Value;
+            _controlData.DepthKp = (float)depthKp.Value;
+            _controlData.DepthKi = (float)depthKi.Value;
+            _controlData.DepthKd = (float)depthKd.Value;
+
+            if (updatePID)
+            {
+                _controlData.UpdatePID = 1;
+                updatePID = false;
+            }
+            else
+            {
+                _controlData.UpdatePID = 0;
+            }
+
+            _connection.Send(_controlData);
         }
     }
 }

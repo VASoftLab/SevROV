@@ -28,7 +28,6 @@ namespace SevROVClient
             _client.Connect(_endPoint);
 
             _client.Send(new byte[] {0xAA, 0xFF}, 2);
-
             _client.BeginReceive(OnReceive, _client);
         }
 

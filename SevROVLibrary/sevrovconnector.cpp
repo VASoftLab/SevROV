@@ -86,6 +86,7 @@ void SevROVConnector::writeConnectDatagram()
     QByteArray bytearray;
     QDataStream stream(&bytearray, QIODeviceBase::WriteOnly);
     stream.setFloatingPointPrecision(QDataStream::SinglePrecision);
+    stream.setByteOrder(QDataStream::LittleEndian);
     stream.setVersion(QDataStream::Qt_6_3);
 
     stream << (std::byte)0xAA;
@@ -102,6 +103,7 @@ void SevROVConnector::writeConnectDatagram(QHostAddress _host, int _port)
     QByteArray bytearray;
     QDataStream stream(&bytearray, QIODeviceBase::WriteOnly);
     stream.setFloatingPointPrecision(QDataStream::SinglePrecision);
+    stream.setByteOrder(QDataStream::LittleEndian);
     stream.setVersion(QDataStream::Qt_6_3);
     stream << (std::byte)0xAA;
     stream << (std::byte)0xFF;
@@ -128,6 +130,7 @@ void SevROVConnector::processDatagram()
 
             QDataStream in(&datagram, QIODevice::ReadOnly);
             in.setFloatingPointPrecision(QDataStream::SinglePrecision);
+            in.setByteOrder(QDataStream::LittleEndian);
             in.setVersion(QDataStream::Qt_6_3);
 
             float Roll;
@@ -176,6 +179,7 @@ void SevROVConnector::processDatagram()
 
             QDataStream in(&datagram, QIODevice::ReadOnly);
             in.setFloatingPointPrecision(QDataStream::SinglePrecision);
+            in.setByteOrder(QDataStream::LittleEndian);
             in.setVersion(QDataStream::Qt_6_3);
 
             float HorizontalVectorX;
@@ -289,6 +293,7 @@ void SevROVConnector::processDatagram()
 
         QDataStream in(&datagram, QIODevice::ReadOnly);
         in.setFloatingPointPrecision(QDataStream::SinglePrecision);
+        in.setByteOrder(QDataStream::LittleEndian);
         in.setVersion(QDataStream::Qt_6_3);
 
         float A;

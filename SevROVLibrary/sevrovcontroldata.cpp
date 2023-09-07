@@ -329,6 +329,7 @@ QByteArray SevROVControlData::toByteArray()
     QByteArray result;
     QDataStream stream(&result, QIODeviceBase::WriteOnly);
     stream.setFloatingPointPrecision(QDataStream::SinglePrecision);
+    stream.setByteOrder(QDataStream::LittleEndian);
     stream.setVersion(QDataStream::Qt_6_3);
 
     stream << HorizontalVectorX;

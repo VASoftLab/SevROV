@@ -107,6 +107,7 @@
             this.lbStabilizationState = new System.Windows.Forms.Label();
             this.tbResetPosition = new System.Windows.Forms.TextBox();
             this.lbResetPosition = new System.Windows.Forms.Label();
+            this.buttonSendPacket = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.portInput)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -968,11 +969,22 @@
             this.lbResetPosition.TabIndex = 66;
             this.lbResetPosition.Text = "ResetPosition";
             // 
+            // buttonSendPacket
+            // 
+            this.buttonSendPacket.Location = new System.Drawing.Point(386, 379);
+            this.buttonSendPacket.Name = "buttonSendPacket";
+            this.buttonSendPacket.Size = new System.Drawing.Size(75, 23);
+            this.buttonSendPacket.TabIndex = 68;
+            this.buttonSendPacket.Text = "Send packet";
+            this.buttonSendPacket.UseVisualStyleBackColor = true;
+            this.buttonSendPacket.Click += new System.EventHandler(this.buttonSendPacket_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1051, 610);
+            this.Controls.Add(this.buttonSendPacket);
             this.Controls.Add(this.tbResetPosition);
             this.Controls.Add(this.lbResetPosition);
             this.Controls.Add(this.tbStabilizationState);
@@ -1132,6 +1144,7 @@
         private System.Windows.Forms.Label lbStabilizationState;
         private System.Windows.Forms.TextBox tbResetPosition;
         private System.Windows.Forms.Label lbResetPosition;
+        private System.Windows.Forms.Button buttonSendPacket;
     }
 }
 
