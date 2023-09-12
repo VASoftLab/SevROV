@@ -18,7 +18,7 @@ MainWindow::MainWindow(QWidget *parent)
                        QDir::separator() + "settings.ini";
 
     // Фиксируем размер окна и убираем иконку ресайза
-    setFixedSize(QSize(522, 650));
+    setFixedSize(QSize(590, 650));
     // statusBar()->setSizeGripEnabled(false);
     // Центрируем окно в пределах экрана
     move(screen()->geometry().center() - frameGeometry().center());

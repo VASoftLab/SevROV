@@ -16,11 +16,14 @@ MainWindow::MainWindow(QWidget *parent)
                        QDir::separator() + "settings.ini";
 
     // Фиксируем размер окна и убираем иконку ресайза
-    setFixedSize(QSize(992, 650));
+    setFixedSize(QSize(1015, 690));
+
     // statusBar()->setSizeGripEnabled(false);
     // Центрируем окно в пределах экрана
     move(screen()->geometry().center() - frameGeometry().center());
     setWindowTitle("ТНПА :: Контроль :: " + QString(APP_VERSION.c_str()));
+
+    ui->edAUVConnection->setStyleSheet("* { background-color: rgba(0, 0, 0, 0); }");
 
     // Создаем объект джойстик-контроллера и получаем список доступных джойстиков
     jsController = new SevROVXboxController();
