@@ -53,7 +53,6 @@ private:
     SevROVConnector rovConnector;
 
     QTimer *controlTimer;
-
     QTimer *videoTimer;
 
     cv::VideoCapture *webcam;

@@ -517,8 +517,13 @@ void MainWindow::on_btnCamera_clicked()
         ui->btnCamera->setText("ОТКЛЮЧИТЬСЯ ОТ КАМЕРЫ");
         cvConnected = true;
 
-        // webcam = new cv::VideoCapture(ui->edIPCamera->text().toStdString());
-        webcam = new cv::VideoCapture(0);
+        if (ui->edIPCamera->text().length() == 1)
+        {
+            int camID = ui->edIPCamera->text().toInt();
+            webcam = new cv::VideoCapture(camID);
+        }
+        else
+            webcam = new cv::VideoCapture(ui->edIPCamera->text().toStdString());
 
         if (!videoTimer->isActive())
             videoTimer->start(100);
@@ -553,8 +558,12 @@ void MainWindow::OnVideoTimer()
     if (source.empty())
         return;
 
+    cv::Mat resized;
+    cv::resize(source, resized, cv::Size(640, 480));
+
     // Image preprocessing
-    cv::cvtColor(source, destination, cv::COLOR_BGR2RGB);
+    cv::cvtColor(resized, destination, cv::COLOR_BGR2RGB);
+
     imgcam = QImage((uchar*) destination.data,
                     destination.cols,
                     destination.rows,

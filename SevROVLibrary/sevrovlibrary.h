@@ -5,7 +5,7 @@
 #include "sevrovcontroldata.h"
 #include "sevrovpidcontroller.h"
 
-const std::string APP_VERSION = "1.1.3";
+const std::string APP_VERSION = "1.2.1";
 const int JOYSTICK_DEAD_ZONE = 5000;
 
 // https://support.xbox.com/en-US/help/hardware-network/controller/xbox-one-wireless-controller
