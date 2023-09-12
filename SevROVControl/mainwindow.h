@@ -10,6 +10,12 @@
 #include "sevrovlibrary.h"
 #include "sevrovconnector.h"
 
+#include <opencv2/opencv.hpp>
+#include <opencv2/core.hpp>
+#include <opencv2/videoio.hpp>
+#include <opencv2/highgui.hpp>
+#include <opencv2/imgproc/imgproc.hpp>
+
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -32,6 +38,8 @@ private slots:
 
     void on_pbPIDUpdate_clicked();
 
+    void on_btnCamera_clicked();
+
 public slots:
     void OnSocketProcessTelemetryDatagram();
     void OnSocketConnect();
@@ -46,10 +54,20 @@ private:
 
     QTimer *controlTimer;
 
+    QTimer *videoTimer;
+
+    cv::VideoCapture *webcam;
+    cv::Mat source;
+    cv::Mat destination;
+    QImage imgcam;
+
     XboxGamepad xbox;
     bool updatePID = false;
 
+    // Соединение с джойстиком
     bool jsConnected = false;
+    // Соединение с камерой
+    bool cvConnected = false;
 
     void OnButtonA(short value);
     void OnButtonB(short value);
@@ -69,5 +87,6 @@ private:
     void OnAxisRTrigger(short value);
 
     void OnControlTimer();
+    void OnVideoTimer();
 };
 #endif // MAINWINDOW_H

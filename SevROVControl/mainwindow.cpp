@@ -24,6 +24,11 @@ MainWindow::MainWindow(QWidget *parent)
     setWindowTitle("ТНПА :: Контроль :: " + QString(APP_VERSION.c_str()));
 
     ui->edAUVConnection->setStyleSheet("* { background-color: rgba(0, 0, 0, 0); }");
+    ui->lblCamera->setStyleSheet("QLabel {"
+                                 "border-style: solid;"
+                                 "border-width: 1px;"
+                                 "border-color: silver; "
+                                 "}");
 
     // Создаем объект джойстик-контроллера и получаем список доступных джойстиков
     jsController = new SevROVXboxController();
@@ -102,8 +107,10 @@ MainWindow::MainWindow(QWidget *parent)
     xbox.RTrigger = -32768;
 
     controlTimer = new QTimer(this);
-    connect(controlTimer, &QTimer::timeout,
-            this, &MainWindow::OnControlTimer);
+    connect(controlTimer, &QTimer::timeout, this, &MainWindow::OnControlTimer);
+
+    videoTimer = new QTimer(this);
+    connect(videoTimer, &QTimer::timeout, this, &MainWindow::OnVideoTimer);
 
     // Создаем коннектор с AUV. Клиент должен уметь писать управление и читать телеметрию
     rovConnector.setMode(SevROVConnector::Mode::CONTROL_WRITE |
@@ -130,9 +137,16 @@ MainWindow::~MainWindow()
     if (controlTimer->isActive())
         controlTimer->stop();
 
+    if (videoTimer->isActive())
+        videoTimer->stop();
+
     saveSettings();
 
     delete controlTimer;
+    delete videoTimer;
+
+    delete webcam;
+
     delete jsController;
     delete ui;
 }
@@ -493,5 +507,61 @@ void MainWindow::saveSettings()
     settings.setValue("/DepthStab", ui->cbDepthStab->isChecked());
 
     settings.endGroup();
+}
+
+
+void MainWindow::on_btnCamera_clicked()
+{
+    if (!cvConnected)
+    {
+        ui->btnCamera->setText("ОТКЛЮЧИТЬСЯ ОТ КАМЕРЫ");
+        cvConnected = true;
+
+        // webcam = new cv::VideoCapture(ui->edIPCamera->text().toStdString());
+        webcam = new cv::VideoCapture(0);
+
+        if (!videoTimer->isActive())
+            videoTimer->start(100);
+    }
+    else
+    {
+        ui->btnCamera->setText("ПОДКЛЮЧИТЬСЯ К КАМЕРЕ");
+        cvConnected = false;
+
+        if (webcam->isOpened())
+            webcam->release();
+
+        if (!videoTimer->isActive())
+            videoTimer->stop();
+
+        QPixmap pixmap;
+        QColor color;
+
+        color = QColor(255, 255, 255, 255);
+        pixmap = QPixmap(ui->lblCamera->size());
+        pixmap.fill(color);
+
+        ui->lblCamera->setPixmap(pixmap);
+        ui->lblCamera->setText("CAMERA");
+    }
+}
+
+void MainWindow::OnVideoTimer()
+{
+    webcam->read(source);
+
+    if (source.empty())
+        return;
+
+    // Image preprocessing
+    cv::cvtColor(source, destination, cv::COLOR_BGR2RGB);
+    imgcam = QImage((uchar*) destination.data,
+                    destination.cols,
+                    destination.rows,
+                    destination.step,
+                    QImage::Format_RGB888);
+
+    // Show QImage using QLabel
+    ui->lblCamera->setPixmap(QPixmap::fromImage(imgcam));
 }
 
