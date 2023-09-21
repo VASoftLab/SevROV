@@ -526,7 +526,7 @@ void MainWindow::on_btnCamera_clicked()
             webcam = new cv::VideoCapture(ui->edIPCamera->text().toStdString());
 
         if (!videoTimer->isActive())
-            videoTimer->start(100);
+            videoTimer->start(10);
     }
     else
     {
